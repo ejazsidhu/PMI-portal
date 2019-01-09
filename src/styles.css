@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.example-card {
+    max-width: 400px;
+    /* max-height: 400px */
+    box-shadow: 2px 5px 15px 3px #c4c4c4
+  }
+
+.navbar{
+    color: white;
+    background: #089DE3 !important;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link{
+    color:white !important;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #37AFE7;
+    margin: 0 5px 0 5px;
+}
+.navbar-light .navbar-nav .nav-link{
+    color: white;
+    font-size: 17px;
+    margin: 0 5px 0 5px;
+
+}
+
+.mat-icon-button:hover{
+    color: orange !important;
+
+}
+.table-noborder table{
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+}
+
+
+.detail{
+    /* background-color: #37AFE7; */
+    margin: 0 auto;
+    padding: 5px;
+    /* color: white; */
+    box-shadow: 5px 10px 13px 1px lightgrey 
+}
+/* li.active{
+    font-size: 25px !important;
+    color: white !important;
+    
+}
+a.nav-Link{
+    color: white !important;
+    font-size: 15px!important
+} */

@@ -1,0 +1,8 @@
+.navbar{
+    border-bottom: 3px solid lightgray;
+}
+
+mat-dialog-container {
+    padding: 2px !important;
+}
+

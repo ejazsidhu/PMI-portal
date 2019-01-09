@@ -1,0 +1,56 @@
+.example-card {
+    max-width: 400px;
+    /* max-height: 400px */
+    box-shadow: 2px 5px 15px 3px #c4c4c4
+  }
+
+  #inf.mat-card-image{
+    height: 190px !important;
+    
+  }
+  .body {
+    /* background-image: url("../../../assets/images/bg.png") ; */
+    /* background-color: #F8F9FA; */
+   }
+  .ui-dropdown{
+    width: 300px
+  }
+  .ui-datepicker-trigger{
+height: 34px !important;
+  }
+
+   mat-card.main:hover{
+    background-color: #b1dcfc;
+    cursor: pointer;
+
+  }
+
+  .mat-card-image img{
+max-height: 200px !important;
+  }
+  .example-header-image {
+    /* background-image: url('/src/assets/images/pngLogo.png'); */
+    background-size: cover;
+  }
+  .ui-accordion-content{
+    padding: 5px !important;
+  }
+
+  :host ::ng-deep .ui-multiselected-item-token,
+        :host ::ng-deep .ui-multiselected-empty-token {
+            padding: 2px 4px;
+            margin: 0 0.286em 0 0;
+            display: inline-block;
+            vertical-align:middle;
+            height: 1.857em;
+        }
+
+        :host ::ng-deep .ui-multiselected-item-token {
+            background: #007ad9;
+            color: #ffffff;
+        }
+
+        :host ::ng-deep .ui-multiselected-empty-token {
+            background: #d95f00;
+            color: #ffffff;
+        }

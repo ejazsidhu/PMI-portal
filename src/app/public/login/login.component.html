@@ -1,0 +1,58 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first mt-1">
+      <img src="assets/images/pngLogo.png" id="icon" alt="User Icon" />
+      <!-- <h1>P&G Portal</h1> -->
+    </div>
+
+    <!-- Login Form -->
+
+    <div *ngIf="errorTrigger" class="alert alert-danger">
+
+      <i class="fa fa-warning fa-fw"></i>
+      <strong>{{myMessage}}</strong>
+    </div>
+
+
+
+    <form [formGroup]="form" class="mt-4 mb-4" (ngSubmit)="onSubmit(form.value)">
+    
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" [formControl]="userName" >
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <mat-error *ngIf="userName.hasError('email') && !userName.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="userName.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" placeholder="Password" [formControl]="password" >
+       
+        <mat-error *ngIf="password.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+
+      <div class="example-button-row mt-3 mb-3">
+        <button [disabled]="form.invalid" mat-button mat-raised-button style="background-color:#5fbae9;color:white">
+          <i class="fa fa-spinner fa-spin" *ngIf="changeClass"></i>
+          Login</button>
+      </div>
+
+    </form>
+
+    <!-- Remind Passowrd -->
+    <!-- <div id="formFooter">
+      <a class="underlineHover" href="#">Go to the Site</a>
+    </div> -->
+
+  </div>
+</div>

@@ -1,0 +1,275 @@
+<div class="container-fluid body">
+
+
+  <div class="row">
+
+    <div class="col-12">
+      <!-- (opened)="panelOpenState = true" (closed)="panelOpenState = false" -->
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header class="mt-1">
+            <mat-panel-title>
+              <!-- Serach Filters  -->
+              <mat-form-field>
+                <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
+                            </mat-form-field>
+            </mat-panel-title>
+            <mat-panel-description>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="row">
+            <div class="col">
+
+              <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
+
+            </div>
+           
+
+            <div class="col">
+              <mat-form-field>
+                <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
+                  <mat-option *ngFor="let z of zones" [value]="z">
+                    {{z.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field *ngIf="regions.length>0">
+                <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()">
+                  <mat-option *ngFor="let z of regions" [value]="z">
+                    {{z.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field *ngIf="cities.length>0">
+                <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()">
+                  <mat-option *ngFor="let z of cities" [value]="z">
+                    {{z.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field *ngIf="chanels.length>0">
+                <mat-select placeholder="Chanels" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()">
+                  <mat-option *ngFor="let z of chanels" [value]="z">
+                    {{z.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+                <mat-form-field *ngIf="categories.length>0">
+                    <mat-select placeholder="Categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()"
+                      multiple>
+                      <mat-option *ngFor="let c of categories" [value]="c">{{category.title}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+
+    <!-- <div class="col-12 ">
+        <div *ngIf="successTrigger" class="alert alert-success">
+            <i class="fa fa-check fa-fw"></i>
+            <strong>{{myMessage}}</strong>
+          </div>
+         
+    </div>
+
+    <div class="col-12 ">
+        <div *ngIf="errorTrigger" class="alert alert-danger">
+            <i class="fa fa-warning fa-fw"></i>
+            <strong>{{myMessage}}</strong>
+          </div>
+        
+    </div> -->
+
+
+    <div class="col text-center mt-1" >
+        <!-- *ngIf="allData.length==0" -->
+      <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData" ></i>
+    </div>
+  </div>
+
+  <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
+    <div class="col text-center">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col ml-2 " *ngIf="allData.length>0 ">
+      <ng-container>
+        <!-- <div class="row">
+          <div class="col-6">
+            <table class="table">
+              <tr *ngFor="let item of store.itemList">
+                <th>{{item.heading}}</th>
+                <td>{{item.value}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <a class="btn btn-link">More Details</a>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+          <div class="col">
+            <img src="{{ip}}{{store.shopImgURL}}" width="100%" height="400" alt="" srcset="" style="
+              border: black 1px solid;  ">
+          </div>
+        </div> -->
+        <!--  -->
+        <div class="row " *ngIf="!singleShopSelected">
+
+          <div class="col-3 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 32, currentPage: p }">
+            <p hidden>{{product.surveyId}}</p>
+            <p hidden>{{product.shopId}}</p>
+            <p hidden>{{product.city}}</p>
+            <p hidden>{{product.region}}</p>
+            <p hidden>{{product.assetName}}</p>
+            <p hidden>{{product.asm}}</p>
+            <p hidden>{{product.srName}}</p>
+            <mat-card class=" main example-card" (click)="getShop(product)">
+              <mat-card-header class="mb-1" >
+                <!--  -->
+                <div mat-card-avatar class="example-header-image">
+                  <img  src="{{ip}}{{product.shopImgURL}}"  width="50" class="rounded-circle">
+                </div>
+                <mat-card-title style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
+                  | slice:0:14 }} ({{product.imageType}})  </mat-card-title>
+                <mat-card-subtitle>
+                  {{product.shopName | titlecase}}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
+              <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
+                #noImageFound>
+              <mat-card-content>
+                <table>
+                  <tr>
+                    <th>Channel:</th>
+                    <td>{{product.channelName}}</td>
+                  </tr>
+
+                  <tr *ngFor="let d of product.assetItemList;let i=index">
+                    <th *ngIf="i!=0">{{d.heading}}:</th>
+                    <td *ngIf="i!=0">{{d.value}}</td>
+                  </tr>
+
+                </table>
+              </mat-card-content>
+              <!-- <mat-card-actions>
+                <button mat-button>Details</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions> -->
+            </mat-card>
+          </div>
+
+        </div>
+
+
+        <div class="row text-center detail" *ngIf="singleShopSelected">
+          <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+            <i class="fa fa-arrow-left"></i>
+          </button> -->
+          <div class="col-6">
+
+              <img src="{{ip}}{{selelctedShop.shopImgURL}}" alt=""  height="650"  class="img-thumbnail">
+  
+            </div>
+
+          <div class="col-6">
+            <table class=" table table-noborder text-justify">
+              <tr>
+
+                <label style="cursor:pointer" (click)="getall()">back to list</label>
+                <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+                  <i class="fa fa-arrow-left"></i>
+                </button> -->
+              </tr>
+              <tr *ngFor="let item of selelctedShop.itemList" class="mb-3">
+                <th class="mr-3">{{item.heading}}:</th>
+                <td>{{item.value}}</td>
+              </tr>
+              <!-- <tr>
+                <td>
+                  <a class="btn btn-link">More Details</a>
+                </td>
+                <td></td>
+              </tr> -->
+            </table>
+
+          </div>
+          
+
+
+        </div>
+
+        <!-- <div class="row mt-1 mb-1" *ngIf="singleShopSelected">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div> -->
+
+        <div class="row mt-4 " *ngIf="singleShopSelected">
+          <div class="col-3 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 60, currentPage: p }">
+            <mat-card class="example-card">
+              <mat-card-header class="mb-1" (click)="getShop(product)">
+                <!--  -->
+                <div mat-card-avatar class="example-header-image">
+                  <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
+                </div>
+                <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
+                  | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
+                <mat-card-subtitle>
+                  {{product.shopName | titlecase}}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
+              <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
+                #noImageFound>
+              <mat-card-content>
+                  <table>
+                      <tr>
+                        <th>Channel:</th>
+                        <td>{{product.channelName}}</td>
+                      </tr>
+    
+                      <tr *ngFor="let d of product.assetItemList;let i=index">
+                        <th *ngIf="i!=0">{{d.heading}}:</th>
+                        <td *ngIf="i!=0" >{{d.value}}</td>
+                      </tr>
+    
+                    </table>
+              </mat-card-content>
+              <!-- <mat-card-actions>
+                <button mat-button>Details</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions> -->
+            </mat-card>
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+  <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
+      <div class="col text-center">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+</div>
