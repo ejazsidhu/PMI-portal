@@ -1,6 +1,11 @@
 .navbar{
     border-bottom: 3px solid lightgray;
 }
+.navbar-brand{
+    background-color: white;
+    border-radius:20%;
+    /* box-shadow: 2px 5px 10px 3px white;  */
+}
 
 mat-dialog-container {
     padding: 2px !important;
