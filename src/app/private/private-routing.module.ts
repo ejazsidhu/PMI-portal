@@ -10,8 +10,8 @@ const routes: Routes = [
     path: '', component: HomeComponent,
     children: [
 
-      { path: '', redirectTo: 'cardView/:id', pathMatch: 'full' },
-      { path: 'cardView/:id', component: BodyComponent },
+      { path: '', redirectTo: 'cardView', pathMatch: 'full' },
+      { path: 'cardView', component: BodyComponent },
       { path: 'secondView', component: ModrenBodyComponent },
       { path: 'userProfile', component: UserProfileComponent }
 
