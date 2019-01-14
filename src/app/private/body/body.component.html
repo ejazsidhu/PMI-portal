@@ -18,15 +18,22 @@
 
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div class="row">
-            <div class="col">
+          <div class="row mt-2 mb-2">
+            <div class="col-12">
+                <span class="alert alert-danger" *ngIf="wrongRange">
+                    Start-date can not be greater than end-date
+                  </span>
+            </div>
+          </div>
+          <div class="row" *ngIf="!singleShopSelected">
+            <div class="col-2">
 
               <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
-
+              
             </div>
            
 
-            <div class="col">
+            <div class="col-2">
               <mat-form-field>
                 <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
                   <mat-option *ngFor="let z of zones" [value]="z">
@@ -36,7 +43,7 @@
               </mat-form-field>
             </div>
 
-            <div class="col">
+            <div class="col-2">
               <mat-form-field *ngIf="regions.length>0">
                 <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()">
                   <mat-option *ngFor="let z of regions" [value]="z">
@@ -46,7 +53,7 @@
               </mat-form-field>
             </div>
 
-            <div class="col">
+            <div class="col-2">
               <mat-form-field *ngIf="cities.length>0">
                 <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()">
                   <mat-option *ngFor="let z of cities" [value]="z">
@@ -56,7 +63,7 @@
               </mat-form-field>
             </div>
 
-            <div class="col">
+            <!-- <div class="col">
               <mat-form-field *ngIf="chanels.length>0">
                 <mat-select placeholder="Chanels" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()">
                   <mat-option *ngFor="let z of chanels" [value]="z">
@@ -73,7 +80,7 @@
                       <mat-option *ngFor="let c of categories" [value]="c">{{category.title}}</mat-option>
                     </mat-select>
                   </mat-form-field>
-              </div>
+              </div> -->
 
           </div>
 
@@ -113,27 +120,7 @@
   <div class="row mt-3">
     <div class="col ml-2 " *ngIf="allData.length>0 ">
       <ng-container>
-        <!-- <div class="row">
-          <div class="col-6">
-            <table class="table">
-              <tr *ngFor="let item of store.itemList">
-                <th>{{item.heading}}</th>
-                <td>{{item.value}}</td>
-              </tr>
-              <tr>
-                <td>
-                  <a class="btn btn-link">More Details</a>
-                </td>
-                <td></td>
-              </tr>
-            </table>
-          </div>
-          <div class="col">
-            <img src="{{ip}}{{store.shopImgURL}}" width="100%" height="400" alt="" srcset="" style="
-              border: black 1px solid;  ">
-          </div>
-        </div> -->
-        <!--  -->
+        
         <div class="row " *ngIf="!singleShopSelected">
 
           <div class="col-3 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 32, currentPage: p }">
@@ -193,7 +180,7 @@
           </button> -->
           <div class="col-6">
 
-              <img src="{{ip}}{{selelctedShop.shopImgURL}}" alt=""  height="650"  class="img-thumbnail">
+              <img src="{{ip}}{{selelctedShop.shopImgURL}}" class="img-thumbnail img-detail">
   
             </div>
 
@@ -230,7 +217,7 @@
         </div> -->
 
         <div class="row mt-4 " *ngIf="singleShopSelected">
-          <div class="col-3 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 60, currentPage: p }">
+          <div class="col-3 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 60, currentPage: p }">
             <mat-card class="example-card">
               <mat-card-header class="mb-1" (click)="getShop(product)">
                 <!--  -->
@@ -270,6 +257,15 @@
       </ng-container>
 
     </div>
+  </div>
+  <div class="row mt-3" *ngIf="!loadingData && allData.length == 0">
+    <div class="col-12 text-center">
+        <div class="alert alert-danger">
+            <i class="fa fa-warning fa-fw"></i>
+            <strong>No Item Found</strong>
+          </div>
+    </div>
+    
   </div>
   <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
       <div class="col text-center">

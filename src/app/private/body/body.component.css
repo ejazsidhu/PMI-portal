@@ -8,6 +8,11 @@
     height: 190px !important;
     
   }
+
+  .img-detail{
+    width: 100% !important;
+    max-height: 100% !important;
+  }
   .body {
     /* background-image: url("../../../assets/images/bg.png") ; */
     /* background-color: #F8F9FA; */

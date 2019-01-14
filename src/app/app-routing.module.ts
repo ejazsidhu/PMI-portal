@@ -4,7 +4,7 @@ import { PageNotFoundComponent } from './public/page-not-found/page-not-found.co
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  {path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'',redirectTo:'home',pathMatch:'full'},
   {
     path:'login',
     loadChildren:'./public/public.module#PublicModule',

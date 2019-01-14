@@ -52,6 +52,7 @@ export class BodyComponent implements OnInit {
 
   chanels: any = [];
   selectedChanel: any = {};
+  wrongRange: boolean=false;
 
   //#endregion
 
@@ -68,7 +69,7 @@ export class BodyComponent implements OnInit {
   ngOnInit() {
     this.getZoneList();
     var d = new Date();
-    var s = moment(d).subtract(2, 'day').format('YYYY-MM-DD');
+    var s = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     this.currentRange = JSON.stringify({ startDate: s, endDate: e });
     console.log('contructor date range', this.currentRange);
@@ -89,12 +90,14 @@ export class BodyComponent implements OnInit {
       applyLabel: "Submit",
       calendarOverlayConfig: {
         shouldCloseOnBackdropClick: false,
+        
         // hasBackDrop: false
-      }
+      },
+      fromMinMax: {fromDate:fromMin, toDate:fromMax},
+      toMinMax: {fromDate:toMin, toDate:toMax},
       // cancelLabel: "Cancel",
-      // excludeWeekends:true,
-      // fromMinMax: {fromDate:fromMin, toDate:fromMax},
-      // toMinMax: {fromDate:toMin, toDate:toMax}
+      excludeWeekends:true,
+     
     };
   }
 
@@ -108,7 +111,18 @@ export class BodyComponent implements OnInit {
 
     this.currentRange = JSON.stringify({ startDate: s, endDate: e });
     console.log('contructor date currentRange', this.currentRange);
-    this.getData(this.currentRange);
+    if(s<=e){
+      this.getData(this.currentRange);
+    }
+
+    else{
+      this.wrongRange=true;
+
+      setTimeout(() => {
+        this.wrongRange=false;
+        
+      }, 4000);
+    }
     this.currentRange = JSON.parse(this.currentRange);
 
   }
@@ -186,55 +200,66 @@ export class BodyComponent implements OnInit {
 
   }
 
-  filterAllData() {
-    this.loadingData=true;      
+  // filterAllData() {
+  //   this.loadingData = true;
 
-    // this.allData = [];
-    this.allData = this.allDataClone;
-    let filterData: any = [];
-    let zone = (this.selectedZone != {}) ? this.selectedZone.title : '';
-    let region = (this.selectedRegion != {}) ? this.selectedRegion.title : '';
-    let city = (this.selectedCity != {}) ? this.selectedCity.title : '';
-    let chanel = (this.selectedChanel != {}) ? this.selectedChanel.title : '';
+  //   // this.allData = [];
+  //   this.allData = this.allDataClone;
+  //   let filterData: any = [];
+  //   let zone = (this.selectedZone != {}) ? this.selectedZone.title : '';
+  //   let region = (this.selectedRegion != {}) ? this.selectedRegion.title : '';
+  //   let city = (this.selectedCity != {}) ? this.selectedCity.title : '';
+  //   let chanel = (this.selectedChanel != {}) ? this.selectedChanel.title : '';
 
-    console.log("current zone is", zone)
-    console.log("current region is", region)
-    console.log("current city is", city)
+  //   console.log("current zone is", zone)
+  //   console.log("current region is", region)
+  //   console.log("current city is", city)
 
-    let i = 0;
-    this.allData.forEach(e => {
-      if (zone != undefined && region == undefined && city == undefined && chanel == undefined)
-        filterData = this.allData.filter(d => d.zone === zone);
+  //   let i = 0;
+  //   this.allData.forEach(e => {
+  //     if (zone != undefined && region == undefined && city == undefined && chanel == undefined)
+  //       filterData = this.allData.filter(d => d.zone === zone);
 
-      if (zone != undefined && region != undefined && city == undefined && chanel == undefined)
-        filterData = this.allData.filter(d => d.zone === zone && d.region === region && chanel == undefined);
+  //     else if (zone != undefined && region != undefined && city == undefined && chanel == undefined)
+  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && chanel == undefined);
 
-      if (zone != undefined && region != undefined && city != undefined && chanel == undefined)
-        filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city);
+  //     else if (zone != undefined && region != undefined && city != undefined && chanel == undefined)
+  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city);
 
-      if (zone != undefined && region != undefined && city != undefined && chanel != undefined)
-        filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city && d.channelName === chanel);
+  //     else if (zone != undefined && region != undefined && city != undefined && chanel != undefined)
+  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city && d.channelName === chanel);
 
-    });
+  //   });
 
-    this.allData = filterData;
+  //   this.allData = filterData;
 
-    setTimeout(() => {
-      this.loadingData=false;      
-    }, 4000);
+  //   setTimeout(() => {
+  //     this.loadingData = false;
+  //   }, 4000);
 
-  }
+  // }
 
   zoneChange() {
-    console.log('selected zone', this.selectedZone);
-    this.filterAllData();
+    this.allData = this.allDataClone;
+
+    console.log('selected zone', this.selectedZone, this.allData[0]);
+    let filterData: any = [];
 
     this.generalService.getRegion(this.selectedZone.id).subscribe(data => {
       this.regions = data;
+      // this.filterAllData();
+
 
     }, error => {
 
-    })
+    });
+    filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
+
+    console.log("after zone selected", filterData)
+
+    this.allData = filterData;
+
+
   }
 
   getCategoryName(product) {
@@ -244,28 +269,43 @@ export class BodyComponent implements OnInit {
   }
 
   regionChange() {
+    this.allData = this.allDataClone;
+    let filterData: any = [];
     console.log('regions id', this.selectedRegion);
-    this.filterAllData();
     this.generalService.getCities(this.selectedRegion.id).subscribe(data => {
       this.cities = data[0];
       console.log('cities list', data);
       this.chanels = data[1];
+      // this.filterAllData();
+
     }, error => {
 
-    })
+    });
+
+    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title);
+    this.allData = filterData;
   }
 
   cityChange() {
     console.log("seelcted city", this.selectedCity);
-    this.filterAllData();
+    this.allData = this.allDataClone;
+    let filterData: any = [];
+    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title);
+    this.allData = filterData;
+
   }
 
   chanelChange() {
     console.log("seelcted chanel", this.selectedChanel);
-    this.filterAllData();
     this.generalService.getCategories(this.selectedChanel).subscribe(data => {
       this.categories = data;
-    }, error => { })
+      // this.filterAllData();
+
+    }, error => { });
+    this.allData = this.allDataClone;
+    let filterData: any = [];
+    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.selectedChanel.title);
+    this.allData = filterData;
 
 
   }
@@ -312,7 +352,7 @@ export class BodyComponent implements OnInit {
       setTimeout(() => {
         this.loadingData = false;
 
-      }, 10000);
+      }, 15000);
 
     }, error => {
       console.log(error);
