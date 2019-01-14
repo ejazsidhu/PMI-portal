@@ -167,38 +167,38 @@ export class BodyComponent implements OnInit {
       this.allData = filterData;
   }
 
-  categoryChange() {
-    console.log(this.selectedCategory);
-    this.allData = [];
-    this.allData = this.allDataClone;
-    let filterData: any = [];
+  // categoryChange() {
+  //   console.log(this.selectedCategory);
+  //   this.allData = [];
+  //   this.allData = this.allDataClone;
+  //   let filterData: any = [];
 
-    this.selectedCategory.forEach(e => {
-      var ft = this.allData.filter(d => d.assetName === e.title && d.imageType === 'Primary');
-      filterData.push(ft)
+  //   this.selectedCategory.forEach(e => {
+  //     var ft = this.allData.filter(d => d.assetName === e.title && d.imageType === 'Primary');
+  //     filterData.push(ft)
 
-    });
-    if (filterData[2]) {
-      this.allData = filterData[0].concat(filterData[1]).concat(filterData[2]);
-      console.log("triple filter list", this.allData)
+  //   });
+  //   if (filterData[2]) {
+  //     this.allData = filterData[0].concat(filterData[1]).concat(filterData[2]);
+  //     console.log("triple filter list", this.allData)
 
-    }
-    else if (filterData[1]) {
-      this.allData = filterData[0].concat(filterData[1]);
-      console.log("double filter list", this.allData)
-
-
-    }
-    else if
-      (filterData[0]) {
-      this.allData = filterData[0];
-      console.log("single filter list", this.allData)
+  //   }
+  //   else if (filterData[1]) {
+  //     this.allData = filterData[0].concat(filterData[1]);
+  //     console.log("double filter list", this.allData)
 
 
-    }
+  //   }
+  //   else if
+  //     (filterData[0]) {
+  //     this.allData = filterData[0];
+  //     console.log("single filter list", this.allData)
 
 
-  }
+  //   }
+
+
+  // }
 
   // filterAllData() {
   //   this.loadingData = true;
@@ -296,16 +296,16 @@ export class BodyComponent implements OnInit {
   }
 
   chanelChange() {
-    console.log("seelcted chanel", this.selectedChanel);
-    this.generalService.getCategories(this.selectedChanel).subscribe(data => {
-      this.categories = data;
-      // this.filterAllData();
+    // console.log("seelcted chanel", this.selectedChanel);
+    // this.generalService.getCategories(this.selectedChanel).subscribe(data => {
+    //   this.categories = data;
+    //   // this.filterAllData();
 
-    }, error => { });
-    this.allData = this.allDataClone;
-    let filterData: any = [];
-    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.selectedChanel.title);
-    this.allData = filterData;
+    // }, error => { });
+    // this.allData = this.allDataClone;
+    // let filterData: any = [];
+    // filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.selectedChanel.title);
+    // this.allData = filterData;
 
 
   }
