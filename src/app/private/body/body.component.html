@@ -1,18 +1,27 @@
 <div class="container-fluid body">
 
 
-  <div class="row">
+  <div class="row" >
+    <div class="col-2 mt-2">
+      <mat-form-field>
+        <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
+      </mat-form-field>
+    </div>
 
-    <div class="col-12">
+    <div class="col-10">
       <!-- (opened)="panelOpenState = true" (closed)="panelOpenState = false" -->
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header class="mt-1">
             <mat-panel-title>
+              Additional filters
+
               <!-- Serach Filters  -->
-              <mat-form-field>
+              <!-- <mat-form-field>
                 <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
-                            </mat-form-field>
+                            </mat-form-field> -->
+
+
             </mat-panel-title>
             <mat-panel-description>
 
@@ -20,18 +29,18 @@
           </mat-expansion-panel-header>
           <div class="row mt-2 mb-2">
             <div class="col-12">
-                <span class="alert alert-danger" *ngIf="wrongRange">
-                    Start-date can not be greater than end-date
-                  </span>
+              <span class="alert alert-danger" *ngIf="wrongRange">
+                Start-date can not be greater than end-date
+              </span>
             </div>
           </div>
-          <div class="row" *ngIf="!singleShopSelected">
+          <div class="row">
             <div class="col-2">
 
               <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
-              
+
             </div>
-           
+
 
             <div class="col-2">
               <mat-form-field>
@@ -89,6 +98,8 @@
     </div>
 
 
+
+
     <!-- <div class="col-12 ">
         <div *ngIf="successTrigger" class="alert alert-success">
             <i class="fa fa-check fa-fw"></i>
@@ -106,21 +117,24 @@
     </div> -->
 
 
-    <div class="col text-center mt-1" >
-        <!-- *ngIf="allData.length==0" -->
-      <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData" ></i>
+    <div class="col text-center mt-1">
+      <!-- *ngIf="allData.length==0" -->
     </div>
   </div>
 
   <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
-    <div class="col text-center">
+    <div class="col-11 text-center">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="col-1">
+      <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
+
     </div>
   </div>
   <div class="row mt-3">
     <div class="col ml-2 " *ngIf="allData.length>0 ">
       <ng-container>
-        
+
         <div class="row " *ngIf="!singleShopSelected">
 
           <div class="col-3 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 32, currentPage: p }">
@@ -136,13 +150,100 @@
             <p hidden>{{product.shopLevel}}</p>
             <p hidden>{{product.areaPmpkl}}</p>
             <mat-card class=" main example-card" (click)="getShop(product)">
-              <mat-card-header class="mb-1" >
+              <mat-card-header class="mb-1">
                 <!--  -->
                 <div mat-card-avatar class="example-header-image">
-                  <img  src="{{ip}}{{product.shopImgURL}}"  width="50" class="rounded-circle">
+                  <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
                 </div>
                 <mat-card-title style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
-                  | slice:0:14 }} ({{product.imageType}})  </mat-card-title>
+                  | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
+                <mat-card-subtitle>
+                  {{product.shopName | titlecase}}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
+              <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
+                #noImageFound>
+              <mat-card-content>
+                <table>
+                  <tr>
+                    <th>Channel:</th>
+                    <td>{{product.channelName}}</td>
+                  </tr>
+
+                  <tr *ngFor="let d of product.assetItemList;let i=index">
+                    <th *ngIf="i!=0">{{d.heading}}:</th>
+                    <td *ngIf="i!=0">{{d.value}}</td>
+                  </tr>
+                  <tr>
+                      <th>Address:</th>
+                      <td>{{product.adress}}</td>
+                    </tr>
+
+                </table>
+              </mat-card-content>
+              <!-- <mat-card-actions>
+                <button mat-button>Details</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions> -->
+            </mat-card>
+          </div>
+
+        </div>
+
+
+        <div class="row text-center detail" *ngIf="singleShopSelected">
+          <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+            <i class="fa fa-arrow-left"></i>
+          </button> -->
+          <div class="col-6">
+
+            <img src="{{ip}}{{selelctedShop.shopImgURL}}" class="img-thumbnail img-detail">
+
+          </div>
+
+          <div class="col-6">
+            <table class=" table table-noborder text-justify">
+              <tr>
+
+                <label style="cursor:pointer;color: blue;font-weight: 700;" (click)="getall()">back to list</label>
+                <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+                  <i class="fa fa-arrow-left"></i>
+                </button> -->
+              </tr>
+              <tr *ngFor="let item of selelctedShop.itemList" class="mb-3">
+                <th class="mr-3">{{item.heading}}:</th>
+                <td>{{item.value}}</td>
+              </tr>
+              <!-- <tr>
+                <td>
+                  <a class="btn btn-link">More Details</a>
+                </td>
+                <td></td>
+              </tr> -->
+            </table>
+
+          </div>
+
+
+
+        </div>
+
+        <!-- <div class="row mt-1 mb-1" *ngIf="singleShopSelected">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div> -->
+
+        <div class="row mt-4 " *ngIf="singleShopSelected">
+          <div class="col-3 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 60, currentPage: p }">
+            <mat-card class="example-card">
+              <mat-card-header class="mb-1">
+                <!--  -->
+                <div mat-card-avatar class="example-header-image">
+                  <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
+                </div>
+                <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
+                  | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
                 <mat-card-subtitle>
                   {{product.shopName | titlecase}}
                 </mat-card-subtitle>
@@ -170,89 +271,6 @@
               </mat-card-actions> -->
             </mat-card>
           </div>
-
-        </div>
-
-
-        <div class="row text-center detail" *ngIf="singleShopSelected">
-          <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
-            <i class="fa fa-arrow-left"></i>
-          </button> -->
-          <div class="col-6">
-
-              <img src="{{ip}}{{selelctedShop.shopImgURL}}" class="img-thumbnail img-detail">
-  
-            </div>
-
-          <div class="col-6">
-            <table class=" table table-noborder text-justify">
-              <tr>
-
-                <label style="cursor:pointer" (click)="getall()">back to list</label>
-                <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
-                  <i class="fa fa-arrow-left"></i>
-                </button> -->
-              </tr>
-              <tr *ngFor="let item of selelctedShop.itemList" class="mb-3">
-                <th class="mr-3">{{item.heading}}:</th>
-                <td>{{item.value}}</td>
-              </tr>
-              <!-- <tr>
-                <td>
-                  <a class="btn btn-link">More Details</a>
-                </td>
-                <td></td>
-              </tr> -->
-            </table>
-
-          </div>
-          
-
-
-        </div>
-
-        <!-- <div class="row mt-1 mb-1" *ngIf="singleShopSelected">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
-        </div> -->
-
-        <div class="row mt-4 " *ngIf="singleShopSelected">
-          <div class="col-3 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 60, currentPage: p }">
-            <mat-card class="example-card">
-              <mat-card-header class="mb-1" (click)="getShop(product)">
-                <!--  -->
-                <div mat-card-avatar class="example-header-image">
-                  <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
-                </div>
-                <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
-                  | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
-                <mat-card-subtitle>
-                  {{product.shopName | titlecase}}
-                </mat-card-subtitle>
-              </mat-card-header>
-              <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
-              <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
-                #noImageFound>
-              <mat-card-content>
-                  <table>
-                      <tr>
-                        <th>Channel:</th>
-                        <td>{{product.channelName}}</td>
-                      </tr>
-    
-                      <tr *ngFor="let d of product.assetItemList;let i=index">
-                        <th *ngIf="i!=0">{{d.heading}}:</th>
-                        <td *ngIf="i!=0" >{{d.value}}</td>
-                      </tr>
-    
-                    </table>
-              </mat-card-content>
-              <!-- <mat-card-actions>
-                <button mat-button>Details</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions> -->
-            </mat-card>
-          </div>
         </div>
       </ng-container>
 
@@ -260,16 +278,16 @@
   </div>
   <div class="row mt-3" *ngIf="!loadingData && allData.length == 0">
     <div class="col-12 text-center">
-        <div class="alert alert-danger">
-            <i class="fa fa-warning fa-fw"></i>
-            <strong>No Item Found</strong>
-          </div>
-    </div>
-    
-  </div>
-  <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
-      <div class="col text-center">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <div class="alert alert-danger">
+        <i class="fa fa-warning fa-fw"></i>
+        <strong>No Item Found</strong>
       </div>
     </div>
+
+  </div>
+  <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
+    <div class="col text-center">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
 </div>

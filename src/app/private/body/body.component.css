@@ -29,7 +29,9 @@ height: 34px !important;
     cursor: pointer;
 
   }
-
+  .mat-card-image{
+    height: 300px !important;
+  }
   .mat-card-image img{
 max-height: 200px !important;
   }

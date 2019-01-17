@@ -268,6 +268,8 @@ export class BodyComponent implements OnInit {
 
   }
 
+  
+
   regionChange() {
     this.allData = this.allDataClone;
     let filterData: any = [];
@@ -311,8 +313,9 @@ export class BodyComponent implements OnInit {
   }
 
   getall() {
-    this.allData = this.allDataClone;
     this.singleShopSelected = false;
+    this.allData = [];
+    this.allData = this.allDataClone;
   }
 
 
