@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'eCome-PNG';
+
+  constructor(private eltRef:ElementRef) {
+    let prop = this.eltRef.nativeElement.getAttribute('userId');
+    console.log('user Id passed ',prop);
+  }
 }

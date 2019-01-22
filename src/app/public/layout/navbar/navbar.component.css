@@ -11,3 +11,16 @@ mat-dialog-container {
     padding: 2px !important;
 }
 
+.mat-toolbar.mat-primary{
+    background: #089DE3 !important;
+}
+
+.example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+

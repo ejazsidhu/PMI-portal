@@ -32,7 +32,10 @@ BrowserModule
     BrowserAnimationsModule
     
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },],
+  providers: [
+    // { provide: LocationStrategy, useClass: HashLocationStrategy },
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

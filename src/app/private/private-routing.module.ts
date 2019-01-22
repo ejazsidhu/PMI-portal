@@ -8,15 +8,15 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 const routes: Routes = [
   {
     path: '', component: HomeComponent,
-    children: [
+    // children: [
 
-      { path: '', redirectTo: 'cardView', pathMatch: 'full' },
-      { path: 'cardView', component: BodyComponent },
-      { path: 'secondView', component: ModrenBodyComponent },
-      { path: 'userProfile', component: UserProfileComponent }
+    //   // { path: '', redirectTo: 'cardView', pathMatch: 'full' },
+    //   // { path: 'cardView', component: BodyComponent },
+    //   // { path: 'secondView', component: ModrenBodyComponent },
+    //   // { path: 'userProfile', component: UserProfileComponent }
 
 
-    ]
+    // ]
   },
 
 

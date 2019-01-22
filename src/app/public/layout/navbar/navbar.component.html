@@ -1,63 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-1">
-  <a class="navbar-brand ">
-    <img src="assets/images/PM.png" width="70">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<mat-toolbar color="primary">
+  
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="  justify-content: flex-end;">
-    <ul class="navbar-nav mr-auto">
-      <!-- <li class="nav-item" [class.active]="router.url==='/home/firstView'">
-        <a class="nav-link" routerLink="/home/firstView">First view </a>
-      </li> -->
-      <!-- <li class="nav-item" [class.active]="router.url==='/home/secondView'">
-        <a class="nav-link" routerLink="/home/secondView">Scecond view</a>
-      </li> -->
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li> -->
-      <!-- <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li> -->
-    </ul>
-    
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-      <!-- <button class="btn btn-outline-danger my-2 my-sm-0" type="button" title="Logout" routerLink="/login"><i class="fa fa-power-off"></i></button> -->
+  <mat-toolbar-row>
+    <span class="navbar-brand">
+      <img src="assets/images/PM.png" width="70">
+    </span>
+    <span class="example-spacer"></span>
+    <!-- <mat-icon class="example-icon">favorite</mat-icon>
+    <mat-icon class="example-icon">delete</mat-icon> -->
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <!-- <mat-icon>acccount_circle</mat-icon> -->
+      <i class="material-icons">
+        account_circle
+        </i>
+    </button>
+    <mat-menu #menu="matMenu">
      
-    
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <!-- <mat-icon>acccount_circle</mat-icon> -->
-        <i class="material-icons">
-          account_circle
-          </i>
+      <!-- <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voicemail</span>
+      </button>-->
+      <!-- <button mat-menu-item (click)="openDialog()">
+        <mat-icon>fingerprint</mat-icon>
+        <span>Manage Profile</span>
+      </button>  -->
+
+      <button mat-menu-item title="Logout" routerLink="/login">
+         <mat-icon>power_settings_new</mat-icon>
+        <span>Logout</span>
       </button>
-      <mat-menu #menu="matMenu">
-       
-        <!-- <button mat-menu-item disabled>
-          <mat-icon>voicemail</mat-icon>
-          <span>Check voicemail</span>
-        </button>-->
-        <!-- <button mat-menu-item (click)="openDialog()">
-          <mat-icon>fingerprint</mat-icon>
-          <span>Manage Profile</span>
-        </button>  -->
-
-        <button mat-menu-item title="Logout" routerLink="/login">
-           <mat-icon>power_settings_new</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
-
-  </div>
-</nav>
-
-
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeneralService } from 'src/app/_service/general.service';
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { NgxDrpOptions, PresetItem, Range } from 'ngx-mat-daterange-picker';
 
@@ -52,21 +52,22 @@ export class BodyComponent implements OnInit {
 
   chanels: any = [];
   selectedChanel: any = {};
-  wrongRange: boolean=false;
+  wrongRange: boolean = false;
 
   //#endregion
 
   constructor(private route: ActivatedRoute, private generalService: GeneralService) {
 
-    // this.categories = [
-    //   { key: 'Gillette', value: 'Gillette' },
-    //   { key: 'Laundry', value: 'Laundry' },
-    //   { key: 'H&S', value: 'H&S' }
-    // ];
+
 
   }
 
   ngOnInit() {
+
+    // this.route.queryParams.subscribe(params => {
+    //   console.log(params['userId']);
+    // })
+    this.loginWithoutHeaders();
     this.getZoneList();
     var d = new Date();
     var s = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
@@ -90,20 +91,31 @@ export class BodyComponent implements OnInit {
       applyLabel: "Submit",
       calendarOverlayConfig: {
         shouldCloseOnBackdropClick: false,
-        
+
         // hasBackDrop: false
       },
-      fromMinMax: {fromDate:fromMin, toDate:fromMax},
-      toMinMax: {fromDate:toMin, toDate:toMax},
+      fromMinMax: { fromDate: fromMin, toDate: fromMax },
+      toMinMax: { fromDate: toMin, toDate: toMax },
       // cancelLabel: "Cancel",
-      excludeWeekends:true,
-     
+      // excludeWeekends:true,
+
     };
+  }
+
+  loginWithoutHeaders() {
+    this.generalService.loginWithoutHeaders().subscribe(data => {
+      console.log('epmty login request', data)
+    }, error => {
+
+      console.log('epmty login request error', error)
+      
+
+    })
   }
 
   //#region date range
   updateRange(range: Range) {
-    this.loading = true;
+    this.loadingData = true;
     this.range = range;
     console.log("update range", this.range);
     var s = moment(this.range.fromDate).format('YYYY-MM-DD');
@@ -111,16 +123,16 @@ export class BodyComponent implements OnInit {
 
     this.currentRange = JSON.stringify({ startDate: s, endDate: e });
     console.log('contructor date currentRange', this.currentRange);
-    if(s<=e){
+    if (s <= e) {
       this.getData(this.currentRange);
     }
 
-    else{
-      this.wrongRange=true;
+    else {
+      this.wrongRange = true;
 
       setTimeout(() => {
-        this.wrongRange=false;
-        
+        this.wrongRange = false;
+
       }, 4000);
     }
     this.currentRange = JSON.parse(this.currentRange);
@@ -143,13 +155,13 @@ export class BodyComponent implements OnInit {
     const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
     const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
 
-    this.presets = [
-      { presetLabel: "Yesterday", range: { fromDate: yesterday, toDate: today } },
-      { presetLabel: "Last 7 Days", range: { fromDate: minus7, toDate: today } },
-      { presetLabel: "Last 30 Days", range: { fromDate: minus30, toDate: today } },
-      { presetLabel: "This Month", range: { fromDate: currMonthStart, toDate: currMonthEnd } },
-      { presetLabel: "Last Month", range: { fromDate: lastMonthStart, toDate: lastMonthEnd } }
-    ]
+    // this.presets = [
+    //   { presetLabel: "Yesterday", range: { fromDate: yesterday, toDate: today } },
+    //   { presetLabel: "Last 7 Days", range: { fromDate: minus7, toDate: today } },
+    //   { presetLabel: "Last 30 Days", range: { fromDate: minus30, toDate: today } },
+    //   { presetLabel: "This Month", range: { fromDate: currMonthStart, toDate: currMonthEnd } },
+    //   { presetLabel: "Last Month", range: { fromDate: lastMonthStart, toDate: lastMonthEnd } }
+    // ]
   }
   // #endregion
 
@@ -240,6 +252,8 @@ export class BodyComponent implements OnInit {
   // }
 
   zoneChange() {
+    this.loadingData = true;
+
     this.allData = this.allDataClone;
 
     console.log('selected zone', this.selectedZone, this.allData[0]);
@@ -264,13 +278,14 @@ export class BodyComponent implements OnInit {
 
   getCategoryName(product) {
 
-    return product.assetItemList[0].value;
+    return product.assetName;//product.assetItemList[0].value;
 
   }
 
-  
 
   regionChange() {
+    this.loadingData = true;
+
     this.allData = this.allDataClone;
     let filterData: any = [];
     console.log('regions id', this.selectedRegion);
@@ -289,7 +304,8 @@ export class BodyComponent implements OnInit {
   }
 
   cityChange() {
-    console.log("seelcted city", this.selectedCity);
+    this.loadingData = true;
+    // console.log("seelcted city", this.selectedCity);
     this.allData = this.allDataClone;
     let filterData: any = [];
     filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title);

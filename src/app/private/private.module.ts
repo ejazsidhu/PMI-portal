@@ -14,6 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -45,6 +46,7 @@ import { ModalModule } from 'ngx-bootstrap';
     FormsModule,
     PrivateRoutingModule,
     // BrowserAnimationsModule,
+    MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,

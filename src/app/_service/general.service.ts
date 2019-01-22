@@ -25,18 +25,26 @@ isUserLoginIn(){
   return this.isUserExist;
 }
 
-  headerCTJson() {
-    let header = new Headers({'userId':localStorage.getItem('Authorized')})
-    // new Headers({ 'Access-Control-Allow-Origin': '*',
+  headerCTJson(userId) {
+    let header = new Headers({'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+    'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
+    'Access-Control-Allow-Credentials': true});
+    header.append("userId",userId)
+    // let header = new Headers({'userId':'80'});
+
+    // let header =  new Headers({ 'Access-Control-Allow-Origin': '*',
     // 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
     // 'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
     // 'Access-Control-Allow-Credentials': true });
+    // header.append('userId','80')
+
     return header;
   }
 
   // public getData(){
   //   let url=this.ip+'shopFacia?regionId&zoneId&startDate=2018-07-01&endDate=2018-07-01&shopIds=undefined&assetIds=undefined&competId=1&primId=1&channelId=undefined&json=y';
-  //   // let httpOption = this.headerCTJson();
+  //   // let httpOption = this.headerCTJson('');
   //   // const option = new RequestOptions({ headers: httpOption });
   //   return this.http.post(url,null).map(
   //     response => response.json()
@@ -45,8 +53,10 @@ isUserLoginIn(){
 
   public getDataByDateRange(range: any) {
     let url = this.ip+'clientShopFacia';
-    let httpOption = this.headerCTJson();
-    const option = new RequestOptions({ headers: httpOption });
+    let headers = this.headerCTJson(80);
+    // let option1 = new RequestOptions({ headers: httpOption });
+    // console.log(option1)
+    // ,{headers:headers}
     return this.http.post(url, range).map(
       response => response.json()
     );
@@ -55,13 +65,25 @@ isUserLoginIn(){
   }
 
 
-  login(cradentials:any){
-    // console.log(cradentials)
+  login(login){
+    let cradentials={userName:'',password:''}
 
     let url = this.ip + 'pictureLogin';
-     let httpOption = this.headerCTJson();
+     let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,cradentials ).map(
+    return this.http.post(url,cradentials).map(
+      response => response.json()
+    );
+
+  }
+
+  loginWithoutHeaders(){
+    let cradentials={userName:'user',password:'1234'}
+
+    let url = this.ip + 'pictureLogin';
+    //  let httpOption = this.headerCTJson('');
+    // const option = new RequestOptions({ headers: httpOption });
+    return this.http.post(url,JSON.stringify(cradentials)).map(
       response => response.json()
     );
 
@@ -70,7 +92,7 @@ isUserLoginIn(){
   getZone(){
     var filter=JSON.stringify({act:0});
     let url = this.ip+'loadFilters';
-    let httpOption = this.headerCTJson();
+    let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
     return this.http.post(url,filter).map(
       response => response.json()
@@ -81,7 +103,7 @@ isUserLoginIn(){
   getRegion(zoneId){
     var filter=JSON.stringify({act:1,zoneId:zoneId});
     let url = this.ip+'loadFilters';
-    let httpOption = this.headerCTJson();
+    let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
     return this.http.post(url,filter ).map(
       response => response.json()
@@ -92,7 +114,7 @@ isUserLoginIn(){
   getCities(regionId){
     var filter=JSON.stringify({act:2,regionId:regionId});
     let url = this.ip+'loadFilters';
-    let httpOption = this.headerCTJson();
+    let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
     return this.http.post(url,filter ).map(
       response => response.json()
@@ -103,7 +125,7 @@ isUserLoginIn(){
   getCategories(channelId){
     var filter=JSON.stringify({act:3,channelId:channelId});
     let url = this.ip+'loadFilters';
-    let httpOption = this.headerCTJson();
+    let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
     return this.http.post(url,filter ).map(
       response => response.json()
