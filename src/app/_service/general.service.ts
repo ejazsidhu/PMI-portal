@@ -77,20 +77,9 @@ isUserLoginIn(){
 
   }
 
-  loginWithoutHeaders(){
-    let cradentials={userName:'user',password:'1234'}
 
-    let url = this.ip + 'pictureLogin';
-    //  let httpOption = this.headerCTJson('');
-    // const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,JSON.stringify(cradentials)).map(
-      response => response.json()
-    );
-
-  }
-
-  getZone(){
-    var filter=JSON.stringify({act:0});
+  getZone(uId:any){
+    var filter=JSON.stringify({act:0,userId:uId});
     let url = this.ip+'loadFilters';
     let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
@@ -100,8 +89,8 @@ isUserLoginIn(){
 
   }
 
-  getRegion(zoneId){
-    var filter=JSON.stringify({act:1,zoneId:zoneId});
+  getRegion(zoneId,uId:any){
+    var filter=JSON.stringify({act:1,zoneId:zoneId,userId:uId});
     let url = this.ip+'loadFilters';
     let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
@@ -111,8 +100,8 @@ isUserLoginIn(){
 
   }
 
-  getCities(regionId){
-    var filter=JSON.stringify({act:2,regionId:regionId});
+  getCities(regionId,uId:any){
+    var filter=JSON.stringify({act:2,regionId:regionId,userId:uId});
     let url = this.ip+'loadFilters';
     let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
@@ -122,8 +111,8 @@ isUserLoginIn(){
 
   }
 
-  getCategories(channelId){
-    var filter=JSON.stringify({act:3,channelId:channelId});
+  getCategories(channelId,uId:any){
+    var filter=JSON.stringify({act:3,channelId:channelId,userId:uId});
     let url = this.ip+'loadFilters';
     let httpOption = this.headerCTJson('');
     const option = new RequestOptions({ headers: httpOption });
@@ -133,7 +122,7 @@ isUserLoginIn(){
 
   }
 
-  getDetailDataForShop(shopId:any){
+  getDetailDataForShop(shopId:any,uId:any){
 
     let obj={      
         shop_id:shopId,
@@ -144,10 +133,9 @@ isUserLoginIn(){
         channel_name:'',
         asset_name:'',
         image_type:'',
+        userId:uId
         
     }
-
-
     let url = this.ip+'shopfacia-details';
     return this.http.post(url,JSON.stringify(obj) ).map(
       response => response.json()

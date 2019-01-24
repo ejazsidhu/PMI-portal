@@ -18,6 +18,7 @@ export class ModrenBodyComponent implements OnInit {
   @ViewChild('dateRangePicker') dateRangePicker;
 
   @ViewChild('productDetailModal') productDetailModal: ModalDirective;
+  uId: string='';
 
   showProductDetailModal(): void {
     this.productDetailModal.show();
@@ -80,11 +81,13 @@ export class ModrenBodyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.uId=localStorage.getItem('userId');
+
     this.getZoneList();
     var d = new Date();
     var s = moment(d).subtract(2, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
-    this.currentRange = JSON.stringify({ startDate: s, endDate: e });
+    this.currentRange = JSON.stringify({ startDate: s, endDate: e,userId:this.uId });
     // console.log('contructor date range', this.range);
     this.getData(this.currentRange);
     this.currentRange = JSON.parse(this.currentRange)
@@ -120,7 +123,7 @@ export class ModrenBodyComponent implements OnInit {
     var s = moment(this.range.fromDate).format('YYYY-MM-DD');
     var e = moment(this.range.toDate).format('YYYY-MM-DD');
 
-    this.currentRange = JSON.stringify({ startDate: s, endDate: e });
+    this.currentRange = JSON.stringify({ startDate: s, endDate: e ,userId:this.uId });
     console.log('contructor date currentRange', this.currentRange);
     this.getData(this.currentRange);
     this.currentRange = JSON.parse(this.currentRange);
@@ -143,13 +146,13 @@ export class ModrenBodyComponent implements OnInit {
     const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
     const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
 
-    this.presets = [
-      { presetLabel: "Yesterday", range: { fromDate: yesterday, toDate: today } },
-      { presetLabel: "Last 7 Days", range: { fromDate: minus7, toDate: today } },
-      { presetLabel: "Last 30 Days", range: { fromDate: minus30, toDate: today } },
-      { presetLabel: "This Month", range: { fromDate: currMonthStart, toDate: currMonthEnd } },
-      { presetLabel: "Last Month", range: { fromDate: lastMonthStart, toDate: lastMonthEnd } }
-    ]
+    // this.presets = [
+    //   { presetLabel: "Yesterday", range: { fromDate: yesterday, toDate: today } },
+    //   { presetLabel: "Last 7 Days", range: { fromDate: minus7, toDate: today } },
+    //   { presetLabel: "Last 30 Days", range: { fromDate: minus30, toDate: today } },
+    //   { presetLabel: "This Month", range: { fromDate: currMonthStart, toDate: currMonthEnd } },
+    //   { presetLabel: "Last Month", range: { fromDate: lastMonthStart, toDate: lastMonthEnd } }
+    // ]
   }
   // #endregion
 
@@ -169,7 +172,7 @@ export class ModrenBodyComponent implements OnInit {
 
   detDetailProdutsForShop(shop) {
     this.loadingData=true;
-    this.generalService.getDetailDataForShop(shop.shopId).subscribe(data => {
+    this.generalService.getDetailDataForShop(shop.shopId,this.uId).subscribe(data => {
       this.allDataSelectedShop = [];
       this.allDataSelectedShop = data
       this.loadingData=false;        
@@ -263,7 +266,7 @@ export class ModrenBodyComponent implements OnInit {
     console.log('selected zone', this.selectedZone);
     this.filterAllData();
 
-    this.generalService.getRegion(this.selectedZone.id).subscribe(data => {
+    this.generalService.getRegion(this.selectedZone.id,this.uId).subscribe(data => {
       this.regions = data;
 
     }, error => {
@@ -280,7 +283,7 @@ export class ModrenBodyComponent implements OnInit {
   regionChange() {
     console.log('regions id', this.selectedRegion);
     this.filterAllData();
-    this.generalService.getCities(this.selectedRegion.id).subscribe(data => {
+    this.generalService.getCities(this.selectedRegion.id,this.uId).subscribe(data => {
       this.cities = data[0];
       console.log('cities list', data);
       this.chanels = data[1];
@@ -297,7 +300,7 @@ export class ModrenBodyComponent implements OnInit {
   chanelChange() {
     console.log("seelcted chanel", this.selectedChanel);
     this.filterAllData();
-    this.generalService.getCategories(this.selectedChanel).subscribe(data => {
+    this.generalService.getCategories(this.selectedChanel,this.uId).subscribe(data => {
       this.categories = data;
     }, error => { })
 
@@ -311,7 +314,7 @@ export class ModrenBodyComponent implements OnInit {
 
 
   getZoneList() {
-    this.generalService.getZone().subscribe(data => {
+    this.generalService.getZone(this.uId).subscribe(data => {
       console.log('zone list', data)
       this.zones = data;
     }, error => {

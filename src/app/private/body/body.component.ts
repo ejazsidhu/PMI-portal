@@ -23,8 +23,6 @@ export class BodyComponent implements OnInit {
   searchFilter = '';
   allDataClone: any[];
 
-
-
   p: number = 1;
   d: number = 1;
   filterModel: any = {};
@@ -53,6 +51,7 @@ export class BodyComponent implements OnInit {
   chanels: any = [];
   selectedChanel: any = {};
   wrongRange: boolean = false;
+  uId: string='';
 
   //#endregion
 
@@ -63,16 +62,14 @@ export class BodyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.uId=localStorage.getItem('userId');
 
-    // this.route.queryParams.subscribe(params => {
-    //   console.log(params['userId']);
-    // })
-    this.loginWithoutHeaders();
-    this.getZoneList();
+
+        this.getZoneList();
     var d = new Date();
     var s = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
-    this.currentRange = JSON.stringify({ startDate: s, endDate: e });
+    this.currentRange = JSON.stringify({ startDate: s, endDate: e,userId:this.uId });
     console.log('contructor date range', this.currentRange);
     this.getData(this.currentRange);
     this.currentRange = JSON.parse(this.currentRange)
@@ -102,16 +99,6 @@ export class BodyComponent implements OnInit {
     };
   }
 
-  loginWithoutHeaders() {
-    this.generalService.loginWithoutHeaders().subscribe(data => {
-      console.log('epmty login request', data)
-    }, error => {
-
-      console.log('epmty login request error', error)
-      
-
-    })
-  }
 
   //#region date range
   updateRange(range: Range) {
@@ -121,7 +108,8 @@ export class BodyComponent implements OnInit {
     var s = moment(this.range.fromDate).format('YYYY-MM-DD');
     var e = moment(this.range.toDate).format('YYYY-MM-DD');
 
-    this.currentRange = JSON.stringify({ startDate: s, endDate: e });
+
+    this.currentRange = JSON.stringify({ startDate: s, endDate: e,userId:this.uId });
     console.log('contructor date currentRange', this.currentRange);
     if (s <= e) {
       this.getData(this.currentRange);
@@ -177,8 +165,10 @@ export class BodyComponent implements OnInit {
     console.log("shopes", filterData)
     if (filterData.length > 0)
       this.allData = filterData;
-  }
 
+  window.scroll(0,0);
+
+  }
   // categoryChange() {
   //   console.log(this.selectedCategory);
   //   this.allData = [];
@@ -259,7 +249,7 @@ export class BodyComponent implements OnInit {
     console.log('selected zone', this.selectedZone, this.allData[0]);
     let filterData: any = [];
 
-    this.generalService.getRegion(this.selectedZone.id).subscribe(data => {
+    this.generalService.getRegion(this.selectedZone.id,this.uId).subscribe(data => {
       this.regions = data;
       // this.filterAllData();
 
@@ -289,7 +279,7 @@ export class BodyComponent implements OnInit {
     this.allData = this.allDataClone;
     let filterData: any = [];
     console.log('regions id', this.selectedRegion);
-    this.generalService.getCities(this.selectedRegion.id).subscribe(data => {
+    this.generalService.getCities(this.selectedRegion.id,this.uId).subscribe(data => {
       this.cities = data[0];
       console.log('cities list', data);
       this.chanels = data[1];
@@ -315,7 +305,7 @@ export class BodyComponent implements OnInit {
 
   chanelChange() {
     // console.log("seelcted chanel", this.selectedChanel);
-    // this.generalService.getCategories(this.selectedChanel).subscribe(data => {
+    // this.generalService.getCategories(this.selectedChanel,this.uId).subscribe(data => {
     //   this.categories = data;
     //   // this.filterAllData();
 
@@ -336,7 +326,7 @@ export class BodyComponent implements OnInit {
 
 
   getZoneList() {
-    this.generalService.getZone().subscribe(data => {
+    this.generalService.getZone(this.uId).subscribe(data => {
       console.log('zone list', data)
       this.zones = data;
     }, error => {

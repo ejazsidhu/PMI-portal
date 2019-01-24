@@ -11,5 +11,6 @@ export class AppComponent {
   constructor(private eltRef:ElementRef) {
     let prop = this.eltRef.nativeElement.getAttribute('userId');
     console.log('user Id passed ',prop);
+    localStorage.setItem('passed',prop);
   }
 }
