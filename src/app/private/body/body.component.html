@@ -72,16 +72,16 @@
               </mat-form-field>
             </div>
 
-            <!-- <div class="col">
+           <div class="col">
               <mat-form-field *ngIf="chanels.length>0">
-                <mat-select placeholder="Chanels" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()">
+                <mat-select placeholder="Areas" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()">
                   <mat-option *ngFor="let z of chanels" [value]="z">
                     {{z.title}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-
+ <!-- 
             <div class="col">
                 <mat-form-field *ngIf="categories.length>0">
                     <mat-select placeholder="Categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()"
@@ -280,7 +280,7 @@
     <div class="col-md-12 col-sm-12 text-center">
       <div class="alert alert-danger">
         <i class="fa fa-warning fa-fw"></i>
-        <strong>No Item Found</strong>
+        <strong>No visit was captured during selected time period </strong>
       </div>
     </div>
 
