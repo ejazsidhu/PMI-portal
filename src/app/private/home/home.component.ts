@@ -13,8 +13,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
     this.route.queryParams.subscribe(params=>{
-      console.log(params['userId']);
-      localStorage.setItem('userId',params['userId']);
+      let id=+params['userId'];
+      console.log();
+      localStorage.setItem('userId',JSON.stringify(id));
     })
   }
 

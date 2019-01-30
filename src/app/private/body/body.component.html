@@ -1,7 +1,7 @@
 <div class="container-fluid body">
 
 
-  <div class="row" >
+  <div class="row" *ngIf="!singleShopSelected">
     <div class="col-md-2  col-sm-12 mt-2">
       <mat-form-field>
         <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
@@ -63,6 +63,16 @@
             </div>
 
             <div class="col-md-2 col-sm-12">
+              <mat-form-field *ngIf="chanels.length>0">
+                <mat-select placeholder="Areas" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()">
+                  <mat-option *ngFor="let z of chanels" [value]="z">
+                    {{z.areaPmpkl}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-2 col-sm-12">
               <mat-form-field *ngIf="cities.length>0">
                 <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()">
                   <mat-option *ngFor="let z of cities" [value]="z">
@@ -72,15 +82,7 @@
               </mat-form-field>
             </div>
 
-           <div class="col">
-              <mat-form-field *ngIf="chanels.length>0">
-                <mat-select placeholder="Areas" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()">
-                  <mat-option *ngFor="let z of chanels" [value]="z">
-                    {{z.title}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+       
  <!-- 
             <div class="col">
                 <mat-form-field *ngIf="categories.length>0">
@@ -149,6 +151,13 @@
             <p hidden>{{product.shopClassification}}</p>
             <p hidden>{{product.shopLevel}}</p>
             <p hidden>{{product.areaPmpkl}}</p>
+            <p hidden>{{product.merchandiserCode}}</p>
+            <p hidden>{{product.merchandiserName}}</p>
+            <p hidden>{{product.shopCode}}</p>
+
+            
+            
+            
             <mat-card class=" main example-card" (click)="getShop(product)">
               <mat-card-header class="mb-1">
                 <!--  -->
@@ -156,7 +165,10 @@
                   <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
                 </div>
                 <mat-card-title style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
-                  | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
+                  | slice:0:14 }}
+                   <!-- ({{product.imageType}}) -->
+                  
+                  </mat-card-title>
                 <mat-card-subtitle>
                   {{product.shopName | titlecase}}
                 </mat-card-subtitle>
@@ -198,7 +210,7 @@
           </button> -->
           <div class="col-md-6 col-sm-12">
 
-            <img src="{{ip}}{{selelctedShop.shopImgURL}}" class="img-thumbnail img-detail">
+            <img src="{{ip}}{{selelctedShop.shopImgURL}}" style="height:450px !important" class="img-thumbnail img-detail">
 
           </div>
 
@@ -235,7 +247,7 @@
         </div> -->
 
         <div class="row mt-4 " *ngIf="singleShopSelected">
-          <div class="col-md-3 col-sm-12 mb-4 animated slideInUp" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 60, currentPage: p }">
+          <div class="col-md-3 col-sm-12 mb-4 animated slideInUp" *ngFor="let product of allDataSelectedShop |filter:searchFilter | paginate: { itemsPerPage: 60, currentPage: p }">
             <mat-card class="example-card">
               <mat-card-header class="mb-1">
                 <!--  -->
@@ -243,7 +255,9 @@
                   <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
                 </div>
                 <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
-                  | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
+                  | slice:0:14 }}
+                   <!-- ({{product.imageType}}) -->
+                   </mat-card-title>
                 <mat-card-subtitle>
                   {{product.shopName | titlecase}}
                 </mat-card-subtitle>
@@ -276,7 +290,16 @@
 
     </div>
   </div>
-  <div class="row mt-3" *ngIf="!loadingData && allData.length == 0">
+  <div class="row mt-3" *ngIf="!loadingData && (allData.length == 0)">
+    <div class="col-md-12 col-sm-12 text-center">
+      <div class="alert alert-danger">
+        <i class="fa fa-warning fa-fw"></i>
+        <strong>No visit was captured during selected time period </strong>
+      </div>
+    </div>
+
+  </div>
+  <div class="row mt-3" *ngIf="!loadingData && (allDataSelectedShop.length==0)">
     <div class="col-md-12 col-sm-12 text-center">
       <div class="alert alert-danger">
         <i class="fa fa-warning fa-fw"></i>
@@ -288,6 +311,17 @@
   <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
     <div class="col-md-12 col-sm-12 text-center">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  
+  </div>
+
+  <div class="row mt-3" *ngIf="allDataSelectedShop.length>0 && singleShopSelected">
+    <div class="col-12 text-center">
+      <label style="cursor:pointer" (click)="detDetailProdutsForShop(selelctedShop)">
+        <a class="btn btn-link">More Details Items</a>
+      </label>
+      <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
+
     </div>
   </div>
 </div>

@@ -51,15 +51,16 @@ export class BodyComponent implements OnInit {
   chanels: any = [];
   selectedChanel: any = {};
   wrongRange: boolean = false;
-  uId: string = '';
+  uId: number = 0;
   filterData: any[] = [];
+  allDataSelectedShop: any[]=[];
 
   //#endregion
 
   constructor(private route: ActivatedRoute, private generalService: GeneralService) {  }
 
   ngOnInit() {
-    this.uId = localStorage.getItem('userId');
+    this.uId =JSON.parse(localStorage.getItem('userId'));
 
 
     this.getZoneList();
@@ -161,13 +162,16 @@ export class BodyComponent implements OnInit {
     filterData = this.allData.filter(d => d.shopId === shop.shopId);
     // console.log("shopes", filterData)
     if (filterData.length > 0)
-      this.allData = filterData;
+      this.allDataSelectedShop = filterData;
 
     window.scroll(0, 0);
 
   }
   
   zoneChange() {
+    this.regions=[];
+    this.cities=[];
+    this.chanels=[];
     this.loadingData = true;
     this.allData = this.allDataClone;
     // console.log('selected zone', this.selectedZone, this.allData[0]);
@@ -200,7 +204,7 @@ export class BodyComponent implements OnInit {
     // console.log('regions id', this.selectedRegion);
     this.generalService.getCities(this.selectedRegion.id, this.uId).subscribe(data => {
       this.cities = data[0];
-      // console.log('cities list', data);
+      console.log('cities list', data);
       this.chanels = data[1];
       // this.filterAllData();
 
@@ -219,7 +223,7 @@ export class BodyComponent implements OnInit {
     // console.log("seelcted city", this.selectedCity);
     this.allData = this.allDataClone;
     this.filterData = [];
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title);
+    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.city == this.selectedCity.title && d.channelName == this.selectedChanel.areaPmpkl));
     this.allData = this.filterData;
     this.loadingData = false;
 
@@ -227,15 +231,16 @@ export class BodyComponent implements OnInit {
   }
 
   chanelChange() {
-    // console.log("seelcted chanel", this.selectedChanel);
-    this.generalService.getCategories(this.selectedChanel,this.uId).subscribe(data => {
-      this.categories = data;
-      // this.filterAllData();
+    console.log("seelcted chanel", this.selectedChanel);
+    // this.generalService.getCategories(this.selectedChanel,this.uId).subscribe(data => {
+    //   this.categories = data;
+    //   // this.filterAllData();
 
-    }, error => { });
+    // }, error => { });
     this.allData = this.allDataClone;
     this.filterData= [];
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.selectedChanel.title);
+    console.log(this.allData[0])
+    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.areaPmpkl == this.selectedChanel.areaPmpkl));
     this.allData = this.filterData;
 
 
@@ -279,7 +284,7 @@ export class BodyComponent implements OnInit {
     this.generalService.getDataByDateRange(range).subscribe(data => {
       this.allData = data;
       this.allDataClone = this.allData.slice();
-      // console.log(this.allData);
+      console.log(this.allData[0]);
       if (this.allData.length == 0) {
         this.successTrigger = true;
         this.myMessage = 'No Data Found';
@@ -309,6 +314,19 @@ export class BodyComponent implements OnInit {
     // console.log('randum height',Math.floor(Math.random() * 40) + 300)
     return { height: Math.floor(Math.random() * 200) + 100 + 'px', width: Math.floor(Math.random() * 400) + 200 + 'px' }
     // ;
+  }
+
+  detDetailProdutsForShop(shop) {
+    this.loadingData=true;
+    this.generalService.getDetailDataForShop(shop.shopId,this.uId).subscribe(data => {
+      this.allDataSelectedShop = [];
+      this.allDataSelectedShop = data
+      this.loadingData=false;        
+
+      
+    }, error => {
+
+    })
   }
 // categoryChange() {
   //   console.log(this.selectedCategory);
