@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { NgxDrpOptions, PresetItem, Range } from 'ngx-mat-daterange-picker';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-body',
@@ -15,6 +16,11 @@ export class BodyComponent implements OnInit {
 
   //#region variables
   @ViewChild('dateRangePicker') dateRangePicker;
+
+  @ViewChild('productDetailModal') productDetailModal: ModalDirective;
+  
+
+ 
   range: Range = { fromDate: new Date(), toDate: new Date() };
   options: NgxDrpOptions;
   presets: Array<PresetItem> = [];
@@ -54,6 +60,9 @@ export class BodyComponent implements OnInit {
   uId: number = 0;
   filterData: any[] = [];
   allDataSelectedShop: any[]=[];
+  selectedProduct: any={};
+
+  imageLoading=false;
 
   //#endregion
 
@@ -223,7 +232,7 @@ export class BodyComponent implements OnInit {
     // console.log("seelcted city", this.selectedCity);
     this.allData = this.allDataClone;
     this.filterData = [];
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.city == this.selectedCity.title && d.channelName == this.selectedChanel.areaPmpkl));
+    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.city == this.selectedCity.title));
     this.allData = this.filterData;
     this.loadingData = false;
 
@@ -327,6 +336,25 @@ export class BodyComponent implements OnInit {
     }, error => {
 
     })
+  }
+
+  getAlert(product) {
+    this.selectedProduct = product;
+    this.showProductDetailModal();
+    this.imageLoading=true;
+    setTimeout(() => {
+
+      this.imageLoading=false;
+      
+    }, 2000);
+  }
+
+  showProductDetailModal(): void {
+    this.productDetailModal.show();
+  }
+
+  hideProductDetailModal(): void {
+    this.productDetailModal.hide();
   }
 // categoryChange() {
   //   console.log(this.selectedCategory);

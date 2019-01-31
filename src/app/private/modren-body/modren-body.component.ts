@@ -259,7 +259,6 @@ export class ModrenBodyComponent implements OnInit {
   getAlert(product) {
     this.selectedProduct = product;
     this.showProductDetailModal()
-
   }
 
   zoneChange() {
