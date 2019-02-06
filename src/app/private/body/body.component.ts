@@ -82,10 +82,11 @@ export class BodyComponent implements OnInit {
     this.currentRange = JSON.parse(this.currentRange)
 
     const today = new Date();
-    const fromMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
-    const fromMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    const toMin = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-    const toMax = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+    today.setDate(today.getDate()-1);
+    // const fromMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
+    // const fromMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    // const toMin = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    // const toMax = new Date(today.getFullYear(), today.getMonth() + 2, 0);
 
     this.setupPresets();
     this.options = {
@@ -98,9 +99,9 @@ export class BodyComponent implements OnInit {
 
         // hasBackDrop: false
       },
-      fromMinMax: { fromDate: fromMin, toDate: fromMax },
-      toMinMax: { fromDate: toMin, toDate: toMax },
-      // cancelLabel: "Cancel",
+      // fromMinMax: { fromDate: fromMin, toDate: fromMax },
+      // toMinMax: { fromDate: toMin, toDate: toMax },
+       // cancelLabel: "Cancel",
       // excludeWeekends:true,
 
     };
@@ -240,7 +241,7 @@ export class BodyComponent implements OnInit {
   }
 
   chanelChange() {
-    console.log("seelcted chanel", this.selectedChanel);
+    // console.log("seelcted chanel", this.selectedChanel);
     // this.generalService.getCategories(this.selectedChanel,this.uId).subscribe(data => {
     //   this.categories = data;
     //   // this.filterAllData();
@@ -248,7 +249,7 @@ export class BodyComponent implements OnInit {
     // }, error => { });
     this.allData = this.allDataClone;
     this.filterData= [];
-    console.log(this.allData[0])
+    // console.log(this.allData[0])
     this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.areaPmpkl == this.selectedChanel.areaPmpkl));
     this.allData = this.filterData;
 
@@ -258,7 +259,7 @@ export class BodyComponent implements OnInit {
   getall() {
     this.singleShopSelected = false;
     // this.loadingData=false;
-    console.log('get alla called',this.allDataClone)
+    // console.log('get alla called',this.allDataClone)
 
     if(this.filterData.length>0)
     this.allData = this.filterData;
@@ -273,7 +274,7 @@ export class BodyComponent implements OnInit {
       // console.log('zone list', data)
       this.zones = data;
     }, error => {
-      console.log("zone list error", error);
+      // console.log("zone list error", error);
       // let er = JSON.parse(error._body)
       // this.myMessage = er.description//'Username OR password is invalid.';
       // this.errorTrigger = true;
@@ -329,7 +330,7 @@ export class BodyComponent implements OnInit {
   detDetailProdutsForShop(shop) {
     this.loadingData=true;
     this.generalService.getDetailDataForShop(shop.shopId,this.uId).subscribe(data => {
-      this.allDataSelectedShop = [];
+      // this.allDataSelectedShop = [];
       this.allDataSelectedShop = data
       this.loadingData=false;        
 

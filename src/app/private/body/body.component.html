@@ -315,10 +315,12 @@
 
   <div class="row mt-3" *ngIf="allDataSelectedShop.length>0 && singleShopSelected">
     <div class="col-12 text-center">
-      <label style="cursor:pointer" (click)="detDetailProdutsForShop(selelctedShop)">
-        <a class="btn btn-link">More Details Items</a>
-      </label>
-      <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
+
+
+      <button class="btn btn-block btn-primary" style="cursor:pointer" (click)="detDetailProdutsForShop(selelctedShop)">
+        View more
+        <i class="fa fa-circle-o-notch fa-spin " *ngIf="loadingData"></i>
+      </button>
 
     </div>
   </div>
