@@ -23,12 +23,16 @@
   .ui-datepicker-trigger{
 height: 34px !important;
   }
+  img.small{
+    cursor: pointer;
+  }
 
-   mat-card.main:hover{
+  .deta:hover{
     background-color: #b1dcfc;
     cursor: pointer;
-
+    margin: -10px;
   }
+  
   .mat-card-image{
     height: 300px !important;
   }

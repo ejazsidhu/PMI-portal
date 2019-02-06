@@ -157,12 +157,12 @@
       
             
             <mat-card class=" main example-card" >
-              <mat-card-header class="mb-1">
+              <mat-card-header class=" deta mb-1" title="click to view shop details" (click)="getShop(product)">
                 <!--  -->
-                <div mat-card-avatar class="example-header-image" (click)="getShop(product)" >
+                <div mat-card-avatar class="example-header-image"  >
                   <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
                 </div>
-                <mat-card-title (click)="getShop(product)" style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
+                <mat-card-title  style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
                   | slice:0:22 }}
                    <!-- ({{product.imageType}}) -->
                   
@@ -171,10 +171,10 @@
                   {{product.shopName | titlecase}}
                 </mat-card-subtitle>
               </mat-card-header>
-              <img (click)="getAlert(product)" *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
-              <img (click)="getAlert(product)" *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
+              <img class="small" title="click to view large image" (click)="getAlert(product)" *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
+              <img class="small" title="click to view large image" (click)="getAlert(product)" *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
                 #noImageFound>
-              <mat-card-content (click)="getShop(product)">
+              <mat-card-content (click)="getShop(product)" class="deta" title="click to view shop details">
                 <table>
                   <tr>
                     <th>Channel:</th>

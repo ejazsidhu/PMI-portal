@@ -257,7 +257,8 @@ export class BodyComponent implements OnInit {
 
   getall() {
     this.singleShopSelected = false;
-    this.loadingData=false;
+    // this.loadingData=false;
+    console.log('get alla called',this.allDataClone)
 
     if(this.filterData.length>0)
     this.allData = this.filterData;
@@ -293,7 +294,7 @@ export class BodyComponent implements OnInit {
     this.generalService.getDataByDateRange(range).subscribe(data => {
       this.allData = data;
       this.allDataClone = this.allData.slice();
-      console.log(this.allData[0]);
+      // console.log(this.allData[0]);
       if (this.allData.length == 0) {
         this.successTrigger = true;
         this.myMessage = 'No Data Found';
@@ -303,7 +304,7 @@ export class BodyComponent implements OnInit {
       setTimeout(() => {
         this.loadingData = false;
 
-      }, 15000);
+      }, 20000);
 
     }, error => {
       console.log(error);
