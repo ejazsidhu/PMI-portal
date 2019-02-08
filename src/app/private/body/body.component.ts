@@ -304,7 +304,7 @@ export class BodyComponent implements OnInit {
       setTimeout(() => {
         this.loadingData = false;
 
-      }, 20000);
+      }, 5000);
 
     }, error => {
       console.log(error);

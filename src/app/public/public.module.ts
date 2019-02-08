@@ -10,13 +10,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 
 
+
 @NgModule({
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     PublicRoutingModule,MatInputModule,MatButtonModule,
     MatDialogModule
   ],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, ],
 
 })
 export class PublicModule { }
