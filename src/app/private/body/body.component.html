@@ -94,7 +94,17 @@
               </div> -->
 
           </div>
+          <div class="row">
+            <div role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('Silver')">Silver</button>
+              <button type="button" class="btn btn-primary ml-2"(click)="getAllDataClassification('Gold')">Gold</button>
+              <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('Platinum')">Platinum</button>
+              <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('Titanium')">Titanium</button>
+              <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('')">Clear</button>
 
+            </div>
+
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
@@ -164,6 +174,7 @@
                 </div>
                 <mat-card-title  style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
                   | slice:0:22 }}
+                  {{product.shopClassification}}
                    <!-- ({{product.imageType}}) -->
                   
                   </mat-card-title>

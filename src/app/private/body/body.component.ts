@@ -7,6 +7,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { NgxDrpOptions, PresetItem, Range } from 'ngx-mat-daterange-picker';
 import { ModalDirective } from 'ngx-bootstrap';
 
+
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
@@ -293,9 +294,10 @@ export class BodyComponent implements OnInit {
     this.selectedZone = {};
 
     this.generalService.getDataByDateRange(range).subscribe(data => {
+      console.log('data',data)
       this.allData = data;
       this.allDataClone = this.allData.slice();
-      // console.log(this.allData[0]);
+      console.log(this.allData[0]);
       if (this.allData.length == 0) {
         this.successTrigger = true;
         this.myMessage = 'No Data Found';
@@ -308,7 +310,7 @@ export class BodyComponent implements OnInit {
       }, 5000);
 
     }, error => {
-      console.log(error);
+      console.log('error body',error);
       // let er = JSON.parse(error._body)
       // this.myMessage = er.description//'Username OR password is invalid.';
       // this.errorTrigger = true;
@@ -357,6 +359,45 @@ export class BodyComponent implements OnInit {
 
   hideProductDetailModal(): void {
     this.productDetailModal.hide();
+  }
+
+  getAllDataClassification(shopClassification:string){
+
+    console.log(shopClassification);
+    console.log('all data',this.allData);
+    console.log('filter data',this.filterData);
+    // this.allData = this.allDataClone;
+
+    if(this.filterData.length==0 && this.allData.length>0)
+    {
+       this.allData=this.allDataClone
+    
+    }
+    else if(this.filterData.length>0){
+      this.allData=this.filterData
+
+    }
+
+   if(shopClassification == '') {
+      this.allData=this.allDataClone
+    }
+    else if(shopClassification != ''){
+      let d= this.allData.filter(d => d.shopClassification === shopClassification);
+      this.allData = d;
+    }
+
+    
+    
+      // this.filterData= [];
+
+  
+      // 
+     
+      
+    
+   
+
+    
   }
 // categoryChange() {
   //   console.log(this.selectedCategory);
