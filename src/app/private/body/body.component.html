@@ -136,7 +136,7 @@
 
   <div class="row mt-3" >
     <div class="col-md-10 col-sm-12 text-center">
-      <pagination-controls *ngIf="allData.length>0 && !singleShopSelected" (pageChange)="p = $event"></pagination-controls>
+      <pagination-controls *ngIf="allData.length>0 " (pageChange)="p = $event"></pagination-controls>
     </div>
     <div class="col-md-2 col-sm-12 text-center">
       <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
@@ -174,7 +174,7 @@
                 </div>
                 <mat-card-title  style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
                   | slice:0:22 }}
-                  {{product.shopClassification}}
+                  <!-- {{product.shopClassification}} -->
                    <!-- ({{product.imageType}}) -->
                   
                   </mat-card-title>
@@ -317,14 +317,14 @@
     </div>
 
   </div> -->
-  <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
+  <div class="row mt-3" *ngIf="allData.length>0 ">
     <div class="col-md-12 col-sm-12 text-center">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   
   </div>
 
-  <div class="row mt-3" *ngIf="allDataSelectedShop.length>0 && singleShopSelected">
+  <!-- <div class="row mt-3" *ngIf="allDataSelectedShop.length>0 && singleShopSelected">
     <div class="col-12 text-center">
 
 
@@ -334,7 +334,7 @@
       </button>
 
     </div>
-  </div>
+  </div> -->
 </div>
 
 

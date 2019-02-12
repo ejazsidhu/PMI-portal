@@ -12,7 +12,7 @@ import{HttpModule} from '@angular/http'
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './public/page-not-found/page-not-found.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { ShopDetailsComponent } from './public/shop-details/shop-details.component';
+
 import { ModalModule } from 'ngx-bootstrap';
 
 
@@ -22,7 +22,7 @@ BrowserModule
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    ShopDetailsComponent
+
     
   ],
   imports: [

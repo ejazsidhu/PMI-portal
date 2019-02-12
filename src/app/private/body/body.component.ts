@@ -169,16 +169,22 @@ export class BodyComponent implements OnInit {
     this.allData = this.allDataClone;
     // this.singleShopSelected = true;
     this.selelctedShop = shop;
+    localStorage.setItem('selelctedShop',JSON.stringify(this.selelctedShop))
+
+
     let filterData: any = [];
     filterData = this.allData.filter(d => d.shopId === shop.shopId);
-    // console.log("shopes", filterData)
+    console.log("shopes", filterData)
     if (filterData.length > 0)
-      this.allDataSelectedShop = filterData;
+    {
+      // this.allDataSelectedShop = filterData;
+      localStorage.setItem('allDataSelectedShop',JSON.stringify(filterData))
+    }
 
     window.scroll(0, 0);
   // window.scroll(0,0);
 
-  window.open('shop/'+shop.shopId,'_blank')
+  window.open('/shop/'+shop.shopId,'_blank')
   }
   
   zoneChange() {
