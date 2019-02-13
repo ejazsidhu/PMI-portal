@@ -167,24 +167,23 @@ export class BodyComponent implements OnInit {
     // console.log(shop);
     this.allData = [];
     this.allData = this.allDataClone;
-    // this.singleShopSelected = true;
+    this.singleShopSelected = true;
     this.selelctedShop = shop;
-    localStorage.setItem('selelctedShop',JSON.stringify(this.selelctedShop))
-
+    // localStorage.setItem('selelctedShop',JSON.stringify(this.selelctedShop))
 
     let filterData: any = [];
-    filterData = this.allData.filter(d => d.shopId === shop.shopId);
+    filterData = this.allDataClone.filter(d => d.shopId === shop.shopId);
     console.log("shopes", filterData)
     if (filterData.length > 0)
     {
-      // this.allDataSelectedShop = filterData;
-      localStorage.setItem('allDataSelectedShop',JSON.stringify(filterData))
+      this.allDataSelectedShop = filterData;
+      // localStorage.setItem('allDataSelectedShop',JSON.stringify(filterData))
     }
 
     window.scroll(0, 0);
   // window.scroll(0,0);
 
-  window.open('/shop/'+shop.shopId,'_blank')
+  // window.open('/shop/'+shop.shopId,'_blank')
   }
   
   zoneChange() {
@@ -271,8 +270,7 @@ export class BodyComponent implements OnInit {
     // console.log('get alla called',this.allDataClone)
 
     if(this.filterData.length>0)
-    this.allData = this.filterData;
-    
+    this.allData = this.filterData;    
     else
      this.allData=this.allDataClone;
   }
@@ -337,9 +335,10 @@ export class BodyComponent implements OnInit {
     // ;
   }
 
-  detDetailProdutsForShop(shop) {
+  getDetailProdutsForShop(shop) {
     this.loadingData=true;
-    this.generalService.getDetailDataForShop(shop.shopId,this.uId).subscribe(data => {
+    // debugger
+    this.generalService.getDetailDataForShop(shop,this.uId).subscribe(data => {
       // this.allDataSelectedShop = [];
       this.allDataSelectedShop = data
       this.loadingData=false;        

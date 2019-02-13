@@ -121,7 +121,7 @@ isUserLoginIn(){
   }
 
   getDetailDataForShop(shopId:any,uId:any){
-
+// debugger
     let obj={      
         shop_id:shopId,
         survey_id:-1,
