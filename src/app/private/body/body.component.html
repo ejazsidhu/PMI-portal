@@ -6,6 +6,8 @@
             <mat-form-field>
                 <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter" (ngModelChange)="getSuperSearch($event)">
             </mat-form-field>
+
+
         </div>
 
         <div class="col-md-10 col-sm-12">
@@ -20,6 +22,13 @@
                             <!-- <mat-form-field>
                 <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
                             </mat-form-field> -->
+
+                            <label *ngIf="selectedZone.title" class="ml-3">{{selectedZone.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedZone={}" ></i></label>
+                            <label *ngIf="selectedRegion.title" class="ml-3">{{selectedRegion.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedRegion={}"></i></label>
+                            <label *ngIf="selectedChanel.title" class="ml-3">{{selectedChanel.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedChanel={}"></i></label>
+                            <label *ngIf="selectedCity.title" class="ml-3">{{selectedCity.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedCity={}"></i></label>
+                            <label *ngIf="shopClassification != ''" class="ml-3">{{shopClassification}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="shopClassification=''"></i></label>
+                            <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''" class="btn btn-danger">Clear all</button>
 
 
                         </mat-panel-title>
@@ -101,7 +110,7 @@
                             <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('Gold')">Gold</button>
                             <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('Platinum')">Platinum</button>
                             <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('Titanium')">Titanium</button>
-                            <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('')">Clear</button>
+                            <!-- <button type="button" class="btn btn-primary ml-2" (click)="getAllDataClassification('')">Clear</button> -->
 
                         </div>
 

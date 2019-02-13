@@ -64,6 +64,7 @@ export class BodyComponent implements OnInit {
   selectedProduct: any={};
 
   imageLoading=false;
+  shopClassification: string='';
 
   //#endregion
 
@@ -370,10 +371,11 @@ export class BodyComponent implements OnInit {
 
   getAllDataClassification(shopClassification:string){
 
-    console.log(shopClassification);
-    console.log('all data',this.allData);
-    console.log('filter data',this.filterData);
+    // console.log(shopClassification);
+    // console.log('all data',this.allData);
+    // console.log('filter data',this.filterData);
     // this.allData = this.allDataClone;
+    this.shopClassification=shopClassification
 
     if(this.filterData.length==0 && this.allData.length>0)
     {

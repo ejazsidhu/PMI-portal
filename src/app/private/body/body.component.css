@@ -2,66 +2,79 @@
     max-width: 400px;
     /* max-height: 400px */
     box-shadow: 2px 5px 15px 3px #c4c4c4
-  }
+}
 
-  #inf.mat-card-image{
+#inf.mat-card-image {
     height: 190px !important;
-    
-  }
+}
 
-  .img-detail{
+.danger {
+    color: #dc3545 !important;
+    cursor: pointer;
+    /* background-color: #dc3545; */
+    /* border-color: #dc3545; */
+}
+
+.img-detail {
     width: 100% !important;
     max-height: 100% !important;
-  }
-  .body {
+}
+
+.body {
     /* background-image: url("../../../assets/images/bg.png") ; */
     /* background-color: #F8F9FA; */
-   }
-  .ui-dropdown{
-    width: 300px
-  }
-  .ui-datepicker-trigger{
-height: 34px !important;
-  }
-  img.small{
-    cursor: pointer;
-  }
+}
 
-  .deta:hover{
+.ui-dropdown {
+    width: 300px
+}
+
+.ui-datepicker-trigger {
+    height: 34px !important;
+}
+
+img.small {
+    cursor: pointer;
+}
+
+.deta:hover {
     background-color: #b1dcfc;
     cursor: pointer;
     margin: -10px;
-  }
-  
-  .mat-card-image{
+}
+
+.mat-card-image {
     height: 300px !important;
-  }
-  .mat-card-image img{
-max-height: 200px !important;
-  }
-  .example-header-image {
+}
+
+.mat-card-image img {
+    max-height: 200px !important;
+}
+
+.example-header-image {
     /* background-image: url('/src/assets/images/pngLogo.png'); */
     background-size: cover;
-  }
-  .ui-accordion-content{
+}
+
+.ui-accordion-content {
     padding: 5px !important;
-  }
+}
 
-  :host ::ng-deep .ui-multiselected-item-token,
-        :host ::ng-deep .ui-multiselected-empty-token {
-            padding: 2px 4px;
-            margin: 0 0.286em 0 0;
-            display: inline-block;
-            vertical-align:middle;
-            height: 1.857em;
-        }
+ :host ::ng-deep .ui-multiselected-item-token,
+ :host ::ng-deep .ui-multiselected-empty-token {
+    padding: 2px 4px;
+    margin: 0 0.286em 0 0;
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.857em;
+}
 
-        :host ::ng-deep .ui-multiselected-item-token {
-            background: #007ad9;
-            color: #ffffff;
-        }
+ :host ::ng-deep .ui-multiselected-item-token {
+    background: #007ad9;
+    color: #ffffff;
+}
 
-        :host ::ng-deep .ui-multiselected-empty-token {
-            background: #d95f00;
-            color: #ffffff;
-        }
+ :host ::ng-deep .ui-multiselected-empty-token {
+    background: #d95f00;
+    color: #ffffff;
+}
