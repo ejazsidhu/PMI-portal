@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-md-10 col-sm-12">
-            <!-- (opened)="panelOpenState = true" (closed)="panelOpenState = false" -->
+
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header class="mt-1">
@@ -129,7 +129,7 @@
                 </pagination-controls>
             </div>
             <div class="col-md-2 col-sm-12 text-center">
-                <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData && !singleShopSelected"></i>
+                <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
 
             </div>
         </div>
@@ -231,7 +231,7 @@
 
                 <table class="table text-justify">
                     <tr>
-                        <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+                        <button class="btn btn-primary mb-3" (click)="singleShopSelected = false">
               <i class="fa fa-arrow-left"></i>
             </button>
                     </tr>
@@ -253,9 +253,12 @@
                     <mat-card-header class="mb-1">
 
                         <div mat-card-avatar class="example-header-image">
-                            <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
+                            <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
                         </div>
-                        <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product) | slice:0:14 }} ({{product.imageType}})</mat-card-title>
+                        <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">
+                            {{getCategoryName(product) | slice:0:14 }}
+                            <!-- ({{product.imageType}}) -->
+                        </mat-card-title>
                         <mat-card-subtitle>
                             {{product.shopName | titlecase}}
                         </mat-card-subtitle>

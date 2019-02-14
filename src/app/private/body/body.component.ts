@@ -166,8 +166,8 @@ export class BodyComponent implements OnInit {
   getShop(shop) {
 
     // console.log(shop);
-    this.allData = [];
-    this.allData = this.allDataClone;
+    // this.allData = [];
+    // this.allData = this.allDataClone;
     this.singleShopSelected = true;
     this.selelctedShop = shop;
     // localStorage.setItem('selelctedShop',JSON.stringify(this.selelctedShop))
@@ -188,10 +188,11 @@ export class BodyComponent implements OnInit {
   }
   
   zoneChange() {
+    debugger
     this.regions=[];
     this.cities=[];
     this.chanels=[];
-    this.loadingData = true;
+    // this.loadingData = true;
     this.allData = this.allDataClone;
     // console.log('selected zone', this.selectedZone, this.allData[0]);
     this.filterData = [];
@@ -266,14 +267,23 @@ export class BodyComponent implements OnInit {
   }
 
   getall() {
+    debugger
     this.singleShopSelected = false;
-    // this.loadingData=false;
+    this.loadingData=false;
     // console.log('get alla called',this.allDataClone)
 
-    if(this.filterData.length>0)
-    this.allData = this.filterData;    
-    else
-     this.allData=this.allDataClone;
+    // if(this.filterData.length>0)
+    // {
+    //   this.allData=[];
+    //   this.allData = this.filterData;    
+
+    // }
+    // else
+    // {
+    //   this.allData=[];
+    //   this.allData=this.allDataClone;
+
+    // }
   }
 
 
@@ -295,13 +305,14 @@ export class BodyComponent implements OnInit {
   }
 
   getData(range) {
+    debugger
     this.selectedCity = {};
     this.selectedRegion = {};
     this.selectedCategory = [];
     this.selectedZone = {};
 
     this.generalService.getDataByDateRange(range).subscribe(data => {
-      console.log('data',data)
+      // console.log('data',data)
       this.allData = data;
       this.allDataClone = this.allData.slice();
       console.log(this.allData[0]);
@@ -396,17 +407,6 @@ export class BodyComponent implements OnInit {
     }
 
     
-    
-      // this.filterData= [];
-
-  
-      // 
-     
-      
-    
-   
-
-    
   }
 
   getSuperSearch(search:string){
@@ -448,54 +448,5 @@ export class BodyComponent implements OnInit {
   //     console.log("double filter list", this.allData)
 
 
-  //   }
-  //   else if
-  //     (filterData[0]) {
-  //     this.allData = filterData[0];
-  //     console.log("single filter list", this.allData)
-
-
-  //   }
-
-
-  // }
-
-  // filterAllData() {
-  //   this.loadingData = true;
-
-  //   // this.allData = [];
-  //   this.allData = this.allDataClone;
-  //   let filterData: any = [];
-  //   let zone = (this.selectedZone != {}) ? this.selectedZone.title : '';
-  //   let region = (this.selectedRegion != {}) ? this.selectedRegion.title : '';
-  //   let city = (this.selectedCity != {}) ? this.selectedCity.title : '';
-  //   let chanel = (this.selectedChanel != {}) ? this.selectedChanel.title : '';
-
-  //   console.log("current zone is", zone)
-  //   console.log("current region is", region)
-  //   console.log("current city is", city)
-
-  //   let i = 0;
-  //   this.allData.forEach(e => {
-  //     if (zone != undefined && region == undefined && city == undefined && chanel == undefined)
-  //       filterData = this.allData.filter(d => d.zone === zone);
-
-  //     else if (zone != undefined && region != undefined && city == undefined && chanel == undefined)
-  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && chanel == undefined);
-
-  //     else if (zone != undefined && region != undefined && city != undefined && chanel == undefined)
-  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city);
-
-  //     else if (zone != undefined && region != undefined && city != undefined && chanel != undefined)
-  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city && d.channelName === chanel);
-
-  //   });
-
-  //   this.allData = filterData;
-
-  //   setTimeout(() => {
-  //     this.loadingData = false;
-  //   }, 4000);
-
-  // }
+  
 }
