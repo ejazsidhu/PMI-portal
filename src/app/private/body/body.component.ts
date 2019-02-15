@@ -439,22 +439,16 @@ export class BodyComponent implements OnInit {
 
   }
 
-  getSuperSearch(search: string) {
-    console.log(search);
+  getSuperSearch() {
+       
 
-    if (search.length > 1) {
-      this.loadingData = true;
-
-      // this.generalService.getSuperSearch(search).subscribe(data=>{
-      //   console.log('search date',data)
-      //   this.allData=data;
-      //   this.loadingData=false;
-      // },error=>{});
-    }
-    else if (search.length <= 1) {
-      this.allData = this.allDataClone;
-
-    }
+      this.generalService.getSuperSearch(this.searchFilter).subscribe(data=>{
+        console.log('search date',data)
+        this.allData=data;
+        this.loadingData=false;
+      },error=>{});
+ 
+    
 
   }
 
