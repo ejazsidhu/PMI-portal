@@ -186,7 +186,7 @@ export class BodyComponent implements OnInit {
   }
   
   zoneChange() {
-    debugger
+    // debugger
     this.regions=[];
     this.cities=[];
     this.chanels=[];
@@ -265,9 +265,9 @@ export class BodyComponent implements OnInit {
   }
 
   getall() {
-    debugger
+    // debugger
     this.singleShopSelected = false;
-    this.loadingData=false;
+    // this.loadingData=false;
     // console.log('get alla called',this.allDataClone)
 
     // if(this.filterData.length>0)
@@ -303,7 +303,7 @@ export class BodyComponent implements OnInit {
   }
 
   getData(range) {
-    debugger
+    // debugger
     this.selectedCity = {};
     this.selectedRegion = {};
     this.selectedCategory = [];

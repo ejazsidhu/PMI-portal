@@ -1,18 +1,18 @@
 <div class="container-fluid body">
 
 
-    <div class="row" *ngIf="!singleShopSelected">
-        <div class="col-md-2  col-sm-12 mt-2">
+    <div class="row">
+        <div class="col-md-2  col-sm-12 mt-2" >
             <mat-form-field>
-                <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter" (ngModelChange)="getSuperSearch($event)">
+                <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter" (ngModelChange)="getSuperSearch($event)" [disabled]="singleShopSelected">
             </mat-form-field>
 
 
         </div>
 
-        <div class="col-md-10 col-sm-12">
+        <div class="col-md-10 col-sm-12" >
 
-            <mat-accordion>
+            <mat-accordion >
                 <mat-expansion-panel>
                     <mat-expansion-panel-header class="mt-1">
                         <mat-panel-title>
@@ -23,13 +23,15 @@
                 <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
                             </mat-form-field> -->
 
-                            <label *ngIf="selectedZone.title" class="ml-3">{{selectedZone.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedZone={}" ></i></label>
-                            <label *ngIf="selectedRegion.title" class="ml-3">{{selectedRegion.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedRegion={}"></i></label>
-                            <label *ngIf="selectedChanel.title" class="ml-3">{{selectedChanel.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedChanel={}"></i></label>
-                            <label *ngIf="selectedCity.title" class="ml-3">{{selectedCity.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedCity={}"></i></label>
-                            <label *ngIf="shopClassification != ''" class="ml-3">{{shopClassification}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="shopClassification=''"></i></label>
-                            <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''" class="btn btn-danger">Clear all</button>
+                           <span [hidden]=true >
+                            <label *ngIf="selectedZone.title" class="ml-3 mr-5 ">{{selectedZone.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedZone={}" ></i></label>
+                            <label *ngIf="selectedRegion.title" class="ml-3">|   {{selectedRegion.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedRegion={}"></i></label>
+                            <label *ngIf="selectedChanel.title" class="ml-3">|   {{selectedChanel.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedChanel={}"></i></label>
+                            <label *ngIf="selectedCity.title" class="ml-3">|     {{selectedCity.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedCity={}"></i></label>
+                            <label *ngIf="shopClassification != ''" class="ml-3 mr-5">|  {{shopClassification}}     |<i class="fa fa-times ml-3 danger" title="clear filter" (click)="shopClassification=''"></i></label>
+                            <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''" class="btn btn-danger btn-sm ml-5">Clear all</button>
 
+                           </span>
 
                         </mat-panel-title>
                         <mat-panel-description>
@@ -45,16 +47,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-12">
-
-                            <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker>
+                            <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker [hidden]="singleShopSelected" >
                             </ngx-mat-drp>
-
                         </div>
 
 
                         <div class="col-md-2 col-sm-12">
                             <mat-form-field>
-                                <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
+                                <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()" [disabled]="singleShopSelected">
                                     <mat-option *ngFor="let z of zones" [value]="z">
                                         {{z.title}}
                                     </mat-option>
@@ -64,7 +64,7 @@
 
                         <div class="col-md-2 col-sm-12">
                             <mat-form-field *ngIf="regions.length>0">
-                                <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()">
+                                <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()" [disabled]="singleShopSelected">
                                     <mat-option *ngFor="let z of regions" [value]="z">
                                         {{z.title}}
                                     </mat-option>
@@ -74,7 +74,7 @@
 
                         <div class="col-md-2 col-sm-12">
                             <mat-form-field *ngIf="chanels.length>0">
-                                <mat-select placeholder="Areas" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()">
+                                <mat-select placeholder="Areas" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()" [disabled]="singleShopSelected">
                                     <mat-option *ngFor="let z of chanels" [value]="z">
                                         {{z.areaPmpkl}}
                                     </mat-option>
@@ -84,7 +84,7 @@
 
                         <div class="col-md-2 col-sm-12">
                             <mat-form-field *ngIf="cities.length>0">
-                                <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()">
+                                <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()" [disabled]="singleShopSelected">
                                     <mat-option *ngFor="let z of cities" [value]="z">
                                         {{z.title}}
                                     </mat-option>
@@ -129,7 +129,7 @@
                 </pagination-controls>
             </div>
             <div class="col-md-2 col-sm-12 text-center">
-                <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
+                <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData && allData.length==0"></i>
 
             </div>
         </div>
