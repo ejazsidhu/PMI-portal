@@ -72,8 +72,6 @@ export class BodyComponent implements OnInit {
 
   ngOnInit() {
     this.uId =JSON.parse(localStorage.getItem('userId'));
-
-
     this.getZoneList();
     var d = new Date();
     var s = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
@@ -85,10 +83,10 @@ export class BodyComponent implements OnInit {
 
     const today = new Date();
     today.setDate(today.getDate()-1);
-    // const fromMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
-    // const fromMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    // const toMin = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-    // const toMax = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+    const fromMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
+    const fromMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const toMin = new Date(today.getFullYear(), today.getMonth() - 0, 1);
+    const toMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
     this.setupPresets();
     this.options = {
@@ -101,8 +99,8 @@ export class BodyComponent implements OnInit {
 
         // hasBackDrop: false
       },
-      // fromMinMax: { fromDate: fromMin, toDate: fromMax },
-      // toMinMax: { fromDate: toMin, toDate: toMax },
+      fromMinMax: { fromDate: fromMin, toDate: fromMax },
+      toMinMax: { fromDate: toMin, toDate: toMax },
        // cancelLabel: "Cancel",
       // excludeWeekends:true,
 
