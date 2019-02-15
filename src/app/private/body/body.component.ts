@@ -19,9 +19,9 @@ export class BodyComponent implements OnInit {
   @ViewChild('dateRangePicker') dateRangePicker;
 
   @ViewChild('productDetailModal') productDetailModal: ModalDirective;
-  
 
- 
+
+
   range: Range = { fromDate: new Date(), toDate: new Date() };
   options: NgxDrpOptions;
   presets: Array<PresetItem> = [];
@@ -60,29 +60,30 @@ export class BodyComponent implements OnInit {
   wrongRange: boolean = false;
   uId: number = 0;
   filterData: any[] = [];
-  allDataSelectedShop: any[]=[];
-  selectedProduct: any={};
+  allDataSelectedShop: any[] = [];
+  selectedProduct: any = {};
 
-  imageLoading=false;
-  shopClassification: string='';
+  imageLoading = false;
+  shopClassification: string = '';
+  filterDataClone: any[] = [];
 
   //#endregion
 
-  constructor(private route: ActivatedRoute, private generalService: GeneralService) {  }
+  constructor(private route: ActivatedRoute, private generalService: GeneralService) { }
 
   ngOnInit() {
-    this.uId =JSON.parse(localStorage.getItem('userId'));
+    this.uId = JSON.parse(localStorage.getItem('userId'));
     this.getZoneList();
     var d = new Date();
     var s = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     this.currentRange = JSON.stringify({ startDate: s, endDate: e, userId: this.uId });
-    console.log('contructor date range', this.currentRange);
+    // console.log('contructor date range', this.currentRange);
     this.getData(this.currentRange);
     this.currentRange = JSON.parse(this.currentRange)
 
     const today = new Date();
-    today.setDate(today.getDate()-1);
+    today.setDate(today.getDate() - 1);
     const fromMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
     const fromMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const toMin = new Date(today.getFullYear(), today.getMonth() - 0, 1);
@@ -101,7 +102,7 @@ export class BodyComponent implements OnInit {
       },
       fromMinMax: { fromDate: fromMin, toDate: fromMax },
       toMinMax: { fromDate: toMin, toDate: toMax },
-       // cancelLabel: "Cancel",
+      // cancelLabel: "Cancel",
       // excludeWeekends:true,
 
     };
@@ -172,24 +173,23 @@ export class BodyComponent implements OnInit {
 
     let filterData: any = [];
     filterData = this.allDataClone.filter(d => d.shopId === shop.shopId);
-    console.log("shopes", filterData)
-    if (filterData.length > 0)
-    {
+    // console.log("shopes", filterData)
+    if (filterData.length > 0) {
       this.allDataSelectedShop = filterData;
       // localStorage.setItem('allDataSelectedShop',JSON.stringify(filterData))
     }
 
     window.scroll(0, 0);
-  // window.scroll(0,0);
+    // window.scroll(0,0);
 
-  // window.open('/shop/'+shop.shopId,'_blank')
+    // window.open('/shop/'+shop.shopId,'_blank')
   }
-  
+
   zoneChange() {
     // debugger
-    this.regions=[];
-    this.cities=[];
-    this.chanels=[];
+    this.regions = [];
+    this.cities = [];
+    this.chanels = [];
     // this.loadingData = true;
     this.allData = this.allDataClone;
     // console.log('selected zone', this.selectedZone, this.allData[0]);
@@ -200,7 +200,16 @@ export class BodyComponent implements OnInit {
     }, error => {
 
     });
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
+    if (this.shopClassification)
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.shopClassification == this.shopClassification);
+
+    else {
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
+      this.filterDataClone = this.filterData
+    }
+
+
+
     // console.log("after zone selected", filterData)
 
     this.allData = this.filterData;
@@ -222,7 +231,7 @@ export class BodyComponent implements OnInit {
     // console.log('regions id', this.selectedRegion);
     this.generalService.getCities(this.selectedRegion.id, this.uId).subscribe(data => {
       this.cities = data[0];
-      console.log('cities list', data);
+      // console.log('cities list', data);
       this.chanels = data[1];
       // this.filterAllData();
 
@@ -230,7 +239,16 @@ export class BodyComponent implements OnInit {
 
     });
 
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title);
+
+    if (this.shopClassification)
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title && d.shopClassification == this.shopClassification);
+
+    else {
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title);
+      this.filterDataClone = this.filterData;
+    }
+
+
     this.allData = this.filterData;
     this.loadingData = false;
 
@@ -241,7 +259,15 @@ export class BodyComponent implements OnInit {
     // console.log("seelcted city", this.selectedCity);
     this.allData = this.allDataClone;
     this.filterData = [];
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.city == this.selectedCity.title));
+
+    if (this.shopClassification)
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.shopClassification == this.shopClassification);
+
+    else {
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.city == this.selectedCity.title));
+      this.filterDataClone = this.filterData;
+    }
+
     this.allData = this.filterData;
     this.loadingData = false;
 
@@ -256,9 +282,16 @@ export class BodyComponent implements OnInit {
 
     // }, error => { });
     this.allData = this.allDataClone;
-    this.filterData= [];
+    this.filterData = [];
     // console.log(this.allData[0])
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.areaPmpkl == this.selectedChanel.areaPmpkl));
+
+    if (this.shopClassification)
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.areaPmpkl == this.selectedChanel.areaPmpkl && d.shopClassification == this.shopClassification);
+
+    else {
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.areaPmpkl == this.selectedChanel.areaPmpkl);
+      this.filterDataClone = this.filterData;
+    }
     this.allData = this.filterData;
 
 
@@ -326,7 +359,7 @@ export class BodyComponent implements OnInit {
       }, 5000);
 
     }, error => {
-      console.log('error body',error);
+      console.log('error body', error);
       // let er = JSON.parse(error._body)
       // this.myMessage = er.description//'Username OR password is invalid.';
       // this.errorTrigger = true;
@@ -346,14 +379,14 @@ export class BodyComponent implements OnInit {
   }
 
   getDetailProdutsForShop(shop) {
-    this.loadingData=true;
+    this.loadingData = true;
     // debugger
-    this.generalService.getDetailDataForShop(shop,this.uId).subscribe(data => {
+    this.generalService.getDetailDataForShop(shop, this.uId).subscribe(data => {
       // this.allDataSelectedShop = [];
       this.allDataSelectedShop = data
-      this.loadingData=false;        
+      this.loadingData = false;
 
-      
+
     }, error => {
 
     })
@@ -362,11 +395,11 @@ export class BodyComponent implements OnInit {
   getAlert(product) {
     this.selectedProduct = product;
     this.showProductDetailModal();
-    this.imageLoading=true;
+    this.imageLoading = true;
     setTimeout(() => {
 
-      this.imageLoading=false;
-      
+      this.imageLoading = false;
+
     }, 2000);
   }
 
@@ -378,54 +411,110 @@ export class BodyComponent implements OnInit {
     this.productDetailModal.hide();
   }
 
-  getAllDataClassification(shopClassification:string){
+  getAllDataClassification(shopClassification: string) {
 
     // console.log(shopClassification);
     // console.log('all data',this.allData);
     // console.log('filter data',this.filterData);
     // this.allData = this.allDataClone;
-    this.shopClassification=shopClassification
+    this.shopClassification = shopClassification;
+    this.allData = []
 
-    if(this.filterData.length==0 && this.allData.length>0)
-    {
-       this.allData=this.allDataClone
-    
-    }
-    else if(this.filterData.length>0){
-      this.allData=this.filterData
+    if (this.filterData.length == 0) {
 
-    }
-
-   if(shopClassification == '') {
-      this.allData=this.allDataClone
-    }
-    else if(shopClassification != ''){
-      let d= this.allData.filter(d => d.shopClassification === shopClassification);
+      let d = this.allDataClone.filter(d => d.shopClassification === shopClassification);
       this.allData = d;
+
+    }
+    else if (this.filterData.length > 0) {
+      let d = this.filterData.filter(d => d.shopClassification === shopClassification);
+      this.allData = d;
+
     }
 
-    
+
+
+
+
+
   }
 
-  getSuperSearch(search:string){
+  getSuperSearch(search: string) {
     console.log(search);
-    
-    if(search.length>1){
-    this.loadingData=true;
 
-      this.generalService.getSuperSearch(search).subscribe(data=>{
-        console.log('search date',data)
-        this.allData=data;
-        this.loadingData=false;
-      },error=>{});
+    if (search.length > 1) {
+      this.loadingData = true;
+
+      // this.generalService.getSuperSearch(search).subscribe(data=>{
+      //   console.log('search date',data)
+      //   this.allData=data;
+      //   this.loadingData=false;
+      // },error=>{});
     }
-    else if(search.length<=1){
-      this.allData=this.allDataClone;
+    else if (search.length <= 1) {
+      this.allData = this.allDataClone;
 
     }
-   
+
   }
-// categoryChange() {
+
+  clearFilter(filter: string) {
+
+    if (filter == 'all' || filter == 'selectedZone') {
+
+      this.filterData = [];
+      this.allData = this.allDataClone;
+
+      this.selectedZone = {};
+      this.selectedRegion = {};
+      this.selectedChanel = {};
+      this.selectedCity = {};
+
+      this.regions = [];
+      this.chanels = [];
+      this.cities = [];
+      // if(filter == 'all')
+      this.shopClassification = '';
+    }
+    else if (filter == 'selectedRegion') {
+
+      this.selectedRegion = {};
+      this.selectedChanel = {};
+      this.selectedCity = {};
+      this.chanels = [];
+      this.cities = [];
+      this.zoneChange()
+
+    }
+    else if (filter == 'selectedChanel') {
+      this.selectedChanel = {};
+      this.regionChange()
+
+    }
+
+    else if (filter == 'selectedCity') {
+
+      this.selectedCity = {};
+      this.regionChange()
+
+    }
+
+    else if (filter == 'shopClassification') {
+
+      this.shopClassification='';
+
+      if (this.filterDataClone.length > 0)
+        this.allData = this.filterDataClone;
+
+      else
+        this.allData = this.allDataClone
+
+
+
+    }
+
+  }
+  // categoryChange() {
   //   console.log(this.selectedCategory);
   //   this.allData = [];
   //   this.allData = this.allDataClone;
@@ -446,5 +535,5 @@ export class BodyComponent implements OnInit {
   //     console.log("double filter list", this.allData)
 
 
-  
+
 }

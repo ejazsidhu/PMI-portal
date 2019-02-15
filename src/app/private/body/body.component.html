@@ -2,7 +2,7 @@
 
 
     <div class="row">
-        <div class="col-md-2  col-sm-12 mt-2" >
+        <div class="col-md-2  col-sm-12 mt-2">
             <mat-form-field>
                 <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter" (ngModelChange)="getSuperSearch($event)" [disabled]="singleShopSelected">
             </mat-form-field>
@@ -10,9 +10,9 @@
 
         </div>
 
-        <div class="col-md-10 col-sm-12" >
+        <div class="col-md-10 col-sm-12">
 
-            <mat-accordion >
+            <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header class="mt-1">
                         <mat-panel-title>
@@ -23,13 +23,15 @@
                 <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
                             </mat-form-field> -->
 
-                           <span [hidden]=true >
-                            <label *ngIf="selectedZone.title" class="ml-3 mr-5 ">{{selectedZone.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedZone={}" ></i></label>
-                            <label *ngIf="selectedRegion.title" class="ml-3">|   {{selectedRegion.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedRegion={}"></i></label>
-                            <label *ngIf="selectedChanel.title" class="ml-3">|   {{selectedChanel.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedChanel={}"></i></label>
-                            <label *ngIf="selectedCity.title" class="ml-3">|     {{selectedCity.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="selectedCity={}"></i></label>
-                            <label *ngIf="shopClassification != ''" class="ml-3 mr-5">|  {{shopClassification}}     |<i class="fa fa-times ml-3 danger" title="clear filter" (click)="shopClassification=''"></i></label>
-                            <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''" class="btn btn-danger btn-sm ml-5">Clear all</button>
+                            <span>
+                            <label *ngIf="selectedZone.title" class="ml-3 mr-2 ">{{selectedZone.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedZone')" ></i></label>
+                            <label *ngIf="selectedRegion.title" class="ml-3">  {{selectedRegion.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedRegion')"></i></label>
+                            <label *ngIf="selectedChanel.title" class="ml-3">  {{selectedChanel.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedChanel')"></i></label>
+                            <label *ngIf="selectedCity.title" class="ml-3">    {{selectedCity.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedCity')"></i></label>
+                            <label *ngIf="shopClassification != ''" class="ml-3 mr-5"> {{shopClassification}}     <i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('shopClassification')"></i></label>
+                           
+                            <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''"  (click)="clearFilter('all')" class="btn btn-danger btn-sm ml-5">Clear all</button>
+                            <!-- <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''" class="btn btn-danger btn-sm ml-5">Clear all</button> -->
 
                            </span>
 
@@ -47,7 +49,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-12">
-                            <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker [hidden]="singleShopSelected" >
+                            <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker [hidden]="singleShopSelected">
                             </ngx-mat-drp>
                         </div>
 
