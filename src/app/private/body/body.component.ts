@@ -440,15 +440,15 @@ export class BodyComponent implements OnInit {
   }
 
   getSuperSearch() {
-       
 
-      this.generalService.getSuperSearch(this.searchFilter).subscribe(data=>{
-        console.log('search date',data)
-        this.allData=data;
-        this.loadingData=false;
-      },error=>{});
- 
-    
+
+    this.generalService.getSuperSearch(this.searchFilter).subscribe(data => {
+      console.log('search date', data)
+      this.allData = data;
+      this.loadingData = false;
+    }, error => { });
+
+
 
   }
 
@@ -467,8 +467,12 @@ export class BodyComponent implements OnInit {
       this.regions = [];
       this.chanels = [];
       this.cities = [];
-      // if(filter == 'all')
-      this.shopClassification = '';
+      if (filter == 'all') {
+        this.shopClassification = '';       
+      }
+      else {
+        this.getAllDataClassification(this.shopClassification)
+      }
     }
     else if (filter == 'selectedRegion') {
 
@@ -494,16 +498,14 @@ export class BodyComponent implements OnInit {
     }
 
     else if (filter == 'shopClassification') {
+      // debugger
 
-      this.shopClassification='';
-
-      if (this.filterDataClone.length > 0)
+      this.shopClassification = '';
+      if (this.selectedZone !={} || this.selectedRegion !={} || this.selectedChanel !={}  || this.selectedCity !={})
         this.allData = this.filterDataClone;
 
-      else
-        this.allData = this.allDataClone
-
-
+        else
+        this.allData=this.allDataClone
 
     }
 
