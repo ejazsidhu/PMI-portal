@@ -419,20 +419,19 @@ export class BodyComponent implements OnInit {
     // this.allData = this.allDataClone;
     this.shopClassification = shopClassification;
     this.allData = []
-
-    if (this.filterData.length == 0) {
-
-      let d = this.allDataClone.filter(d => d.shopClassification === shopClassification);
-      this.allData = d;
+    let d = [];
+    if (this.filterData.length == 0 && this.filterDataClone.length>0) {
+      d = this.filterDataClone.filter(d => d.shopClassification === shopClassification);
+    }
+    else if (this.filterData.length > 0 && this.filterDataClone.length==0) {
+     d= this.filterData.filter(d => d.shopClassification === shopClassification);
+    }
+    else {
+     d= this.allDataClone.filter(d => d.shopClassification === shopClassification);
 
     }
-    else if (this.filterData.length > 0) {
-      let d = this.filterData.filter(d => d.shopClassification === shopClassification);
-      this.allData = d;
 
-    }
-
-
+    this.allData = d;
 
 
 
@@ -468,11 +467,13 @@ export class BodyComponent implements OnInit {
       this.chanels = [];
       this.cities = [];
       if (filter == 'all') {
-        this.shopClassification = '';       
+        this.shopClassification = '';
+      this.allData = this.allDataClone;
+
       }
-      else {
-        this.getAllDataClassification(this.shopClassification)
-      }
+      // else {
+      //   this.getAllDataClassification(this.shopClassification)
+      // }
     }
     else if (filter == 'selectedRegion') {
 
@@ -498,14 +499,18 @@ export class BodyComponent implements OnInit {
     }
 
     else if (filter == 'shopClassification') {
-      // debugger
+      debugger
+      // this.allData = this.allDataClone
 
       this.shopClassification = '';
-      if (this.selectedZone !={} || this.selectedRegion !={} || this.selectedChanel !={}  || this.selectedCity !={})
-        this.allData = this.filterDataClone;
+      if (!!this.selectedZone.title  || !!this.selectedRegion.title  || !!this.selectedChanel.title   || !!this.selectedCity.title )
+      this.allData = this.filterData ;//|| this.filterDataClone;
 
-        else
-        this.allData=this.allDataClone
+      // else if (!!this.selectedZone.title  || !!this.selectedRegion.title  || !!this.selectedChanel.title   || !!this.selectedCity.title  && this.filterDataClone.length>0)
+      // this.allData = this.filterDataClone;
+
+      else
+      this.allData=this.allDataClone
 
     }
 
