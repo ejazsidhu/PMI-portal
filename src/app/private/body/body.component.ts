@@ -190,6 +190,10 @@ export class BodyComponent implements OnInit {
     this.regions = [];
     this.cities = [];
     this.chanels = [];
+    this.selectedRegion={};
+    this.selectedCategory=[];
+    this.selectedChanel={};
+    
     // this.loadingData = true;
     this.allData = this.allDataClone;
     // console.log('selected zone', this.selectedZone, this.allData[0]);

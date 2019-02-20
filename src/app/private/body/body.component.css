@@ -8,9 +8,13 @@
     height: 190px !important;
 }
 
+mat-card.main:hover {
+    cursor: pointer;
+    background-color: #b1dcfc;
+}
+
 .danger {
     color: #dc3545 !important;
-    cursor: pointer;
     /* background-color: #dc3545; */
     /* border-color: #dc3545; */
 }
@@ -37,11 +41,12 @@ img.small {
     cursor: pointer;
 }
 
-.deta:hover {
+
+/* .deta:hover {
     background-color: #b1dcfc;
     cursor: pointer;
     margin: -10px;
-}
+} */
 
 .mat-card-image {
     height: 300px !important;

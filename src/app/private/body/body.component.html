@@ -33,7 +33,7 @@
                             <span>
                             <label *ngIf="selectedZone.title" class="ml-3 mr-2 ">{{selectedZone.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedZone')" ></i></label>
                             <label *ngIf="selectedRegion.title" class="ml-3">  {{selectedRegion.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedRegion')"></i></label>
-                            <label *ngIf="selectedChanel.title" class="ml-3">  {{selectedChanel.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedChanel')"></i></label>
+                            <label *ngIf="selectedChanel.areaPmpkl" class="ml-3">  {{selectedChanel.areaPmpkl}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedChanel')"></i></label>
                             <label *ngIf="selectedCity.title" class="ml-3">    {{selectedCity.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedCity')"></i></label>
                             <label *ngIf="shopClassification != ''" class="ml-3 mr-5"> {{shopClassification}}     <i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('shopClassification')"></i></label>
                            
@@ -132,7 +132,7 @@
     </div>
     <!--  -->
 
-    <div class="container mainPage">
+    <div class="mainPage">
         <div class="row mt-3">
             <div class="col-md-10 col-sm-12 text-center">
                 <pagination-controls *ngIf="allData.length>0 && !singleShopSelected" (pageChange)="p = $event">
@@ -164,12 +164,12 @@
 
 
                         <mat-card class=" main example-card">
-                            <mat-card-header class=" deta mb-1" title="click to view shop details" (click)="getShop(product)">
+                            <mat-card-header class="  mb-1" title="click to view shop details" (click)="getShop(product)">
                                 <!--  -->
                                 <div mat-card-avatar class="example-header-image">
                                     <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
                                 </div>
-                                <mat-card-title style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">{{getCategoryName(product) | slice:0:22 }}
+                                <mat-card-title style="white-space: nowrap;word-wrap: break-word;">{{getCategoryName(product) | slice:0:22 }}
                                     <!-- {{product.shopClassification}} -->
                                     <!-- ({{product.imageType}}) -->
 
@@ -180,7 +180,7 @@
                             </mat-card-header>
                             <img class="small" title="click to view large image" (click)="getAlert(product)" *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
                             <img class="small" title="click to view large image" (click)="getAlert(product)" *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found" #noImageFound>
-                            <mat-card-content (click)="getShop(product)" class="deta" title="click to view shop details">
+                            <mat-card-content (click)="getShop(product)" title="click to view shop details">
                                 <table>
                                     <tr>
                                         <th>Channel:</th>
@@ -227,7 +227,7 @@
     </div>
     <!-- container ends here for main page-->
 
-    <div class="container detailPage" *ngIf="singleShopSelected">
+    <div class=" detailPage" *ngIf="singleShopSelected">
 
         <div class="row text-center detail">
 
