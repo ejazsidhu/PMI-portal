@@ -36,7 +36,7 @@
                             <label *ngIf="selectedChanel.areaPmpkl" class="ml-3">  {{selectedChanel.areaPmpkl}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedChanel')"></i></label>
                             <label *ngIf="selectedCity.title" class="ml-3">    {{selectedCity.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedCity')"></i></label>
                             <label *ngIf="shopClassification != ''" class="ml-3 mr-5"> {{shopClassification}}     <i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('shopClassification')"></i></label>
-                           
+                            <label *ngIf="selectedMerchndizer.code" class="ml-3 mr-5"> {{selectedMerchndizer.code}}     <i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedMerchndizer')"></i></label>
                             <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''"  (click)="clearFilter('all')" class="btn btn-danger btn-sm ml-5">Clear all</button>
                             <!-- <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''" class="btn btn-danger btn-sm ml-5">Clear all</button> -->
 
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-3 col-sm-12 mMinus50">
                             <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker [hidden]="singleShopSelected">
                             </ngx-mat-drp>
                         </div>
@@ -102,15 +102,14 @@
                         </div>
 
 
-                        <!-- 
-            <div class="col">
-                <mat-form-field *ngIf="categories.length>0">
-                    <mat-select placeholder="Categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()"
-                      multiple>
-                      <mat-option *ngFor="let c of categories" [value]="c">{{category.title}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-              </div> -->
+
+                        <div class="col">
+                            <mat-form-field *ngIf="merchandisers.length>0">
+                                <mat-select placeholder="Merchandisers" [(ngModel)]="selectedMerchndizer" (ngModelChange)="merchandiserChange()">
+                                    <mat-option *ngFor="let m of merchandisers" [value]="m">{{m.code}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
                     </div>
                     <div class="row">

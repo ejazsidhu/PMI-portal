@@ -57,6 +57,10 @@ export class BodyComponent implements OnInit {
 
   chanels: any = [];
   selectedChanel: any = {};
+
+  merchandisers:any=[];
+  selectedMerchndizer:any={}
+
   wrongRange: boolean = false;
   uId: number = 0;
   filterData: any[] = [];
@@ -264,6 +268,13 @@ export class BodyComponent implements OnInit {
     this.allData = this.allDataClone;
     this.filterData = [];
 
+    this.generalService.getMerchandiser(this.selectedCity.id,this.uId).subscribe(data=>{
+this.merchandisers=data;
+console.log(this.merchandisers)
+    },error=>{
+
+    });
+
     if (this.shopClassification)
       this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.shopClassification == this.shopClassification);
 
@@ -300,7 +311,29 @@ export class BodyComponent implements OnInit {
 
 
   }
+  merchandiserChange() {
+    console.log("seelcted chanel", this.selectedMerchndizer);
+    // this.generalService.getCategories(this.selectedChanel,this.uId).subscribe(data => {
+    //   this.categories = data;
+    //   // this.filterAllData();
 
+    // }, error => { });
+    this.allData = this.allDataClone;
+    this.filterData = [];
+    // console.log(this.allData[0])
+
+    if (this.shopClassification)
+      this.filterData = this.allData.filter(d => d.merchandiserCode == this.selectedMerchndizer.code && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.shopClassification == this.shopClassification);
+
+    else {
+      this.filterData = this.allData.filter(d => d.merchandiserCode == this.selectedMerchndizer.code && d.region === this.selectedRegion.title && (d.city == this.selectedCity.title));
+      this.filterDataClone = this.filterData;
+    }
+
+    this.allData = this.filterData;
+
+
+  }
   getall() {
     // debugger
     this.singleShopSelected = false;
@@ -466,7 +499,9 @@ export class BodyComponent implements OnInit {
       this.selectedRegion = {};
       this.selectedChanel = {};
       this.selectedCity = {};
+      this.selectedMerchndizer={};
 
+      this.merchandisers=[];
       this.regions = [];
       this.chanels = [];
       this.cities = [];
@@ -499,6 +534,13 @@ export class BodyComponent implements OnInit {
 
       this.selectedCity = {};
       this.regionChange()
+
+    }
+
+    else if (filter == 'selectedMerchndizer') {
+
+      this.selectedMerchndizer = {};
+      this.cityChange()
 
     }
 
