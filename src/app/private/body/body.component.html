@@ -168,7 +168,7 @@
                                 <div mat-card-avatar class="example-header-image">
                                     <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
                                 </div>
-                                <mat-card-title style="white-space: nowrap;word-wrap: break-word;">{{getCategoryName(product) | slice:0:22 }}
+                                <mat-card-title style="word-wrap: break-word;word-break: break-all">{{getCategoryName(product) | slice:0:22 }}
                                     <!-- {{product.shopClassification}} -->
                                     <!-- ({{product.imageType}}) -->
 
@@ -192,7 +192,7 @@
                                     </tr>
                                     <tr>
                                         <th>Address:</th>
-                                        <td>{{product.adress}}</td>
+                                        <td style="word-wrap: break-word;word-break: break-all">{{product.adress}}</td>
                                     </tr>
 
                                 </table>
@@ -264,7 +264,7 @@
                         <div mat-card-avatar class="example-header-image">
                             <img src="{{ip}}{{product.shopImgURL}}" width="50" height="50" class="rounded-circle">
                         </div>
-                        <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">
+                        <mat-card-title style="word-wrap: break-word;word-break: break-all;cursor: pointer;" title="{{getCategoryName(product)}}">
                             {{getCategoryName(product) | slice:0:14 }}
                             <!-- ({{product.imageType}}) -->
                         </mat-card-title>
@@ -285,7 +285,10 @@
                                 <th *ngIf="i!=0">{{d.heading}}:</th>
                                 <td *ngIf="i!=0">{{d.value}}</td>
                             </tr>
-
+                            <tr>
+                                <th>Address:</th>
+                                <td style="word-wrap: break-word;word-break: break-all">{{product.adress}}</td>
+                            </tr>
                         </table>
                     </mat-card-content>
 

@@ -90,7 +90,7 @@ export class BodyComponent implements OnInit {
     today.setDate(today.getDate() - 1);
     const fromMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
     const fromMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    const toMin = new Date(today.getFullYear(), today.getMonth() - 0, 1);
+    const toMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
     const toMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
     this.setupPresets();
@@ -194,6 +194,10 @@ export class BodyComponent implements OnInit {
     this.regions = [];
     this.cities = [];
     this.chanels = [];
+    this.merchandisers=[];
+
+    this.selectedMerchndizer={};
+    this.selectedCity={}
     this.selectedRegion={};
     this.selectedCategory=[];
     this.selectedChanel={};

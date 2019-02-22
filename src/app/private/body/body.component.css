@@ -28,10 +28,12 @@ mat-card.main:hover {
     max-height: 100% !important;
 }
 
-.body {
-    /* background-image: url("../../../assets/images/bg.png") ; */
-    /* background-color: #F8F9FA; */
+
+/* .body {
+    background-image: url("../../../assets/images/bg.png") ;
+background-color: #F8F9FA;
 }
+*/
 
 .ui-dropdown {
     width: 300px
