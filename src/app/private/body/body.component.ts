@@ -585,6 +585,12 @@ console.log(this.merchandisers)
   //     this.allData = filterData[0].concat(filterData[1]);
   //     console.log("double filter list", this.allData)
 
+  searchFilterClear(str){
+    if(str==''&& this.filterData)
+    this.allData=this.filterData;
 
+    else
+    this.allData=this.allDataClone;
+  }
 
 }
