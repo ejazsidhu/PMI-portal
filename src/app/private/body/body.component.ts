@@ -70,6 +70,7 @@ export class BodyComponent implements OnInit {
   imageLoading = false;
   shopClassification: string = '';
   filterDataClone: any[] = [];
+  errorMessage: string;
 
   //#endregion
 
@@ -118,17 +119,26 @@ export class BodyComponent implements OnInit {
     this.loadingData = true;
     this.range = range;
     // console.log("update range", this.range);
-    var s = moment(this.range.fromDate).format('YYYY-MM-DD');
+    var s = moment(this.range.fromDate).format('YYYY-MM-DD')
+  
     var e = moment(this.range.toDate).format('YYYY-MM-DD');
+    var maxDate=moment(this.range.fromDate).add(6,'days').format('YYYY-MM-DD');
+    console.log('max Date', maxDate);
 
 
     this.currentRange = JSON.stringify({ startDate: s, endDate: e, userId: this.uId });
     // console.log('contructor date currentRange', this.currentRange);
-    if (s <= e) {
+    if (s <= e && e<=maxDate) {
       this.getData(this.currentRange);
     }
+   
 
     else {
+      this.errorMessage='Start-date can not be greater than end-date';
+
+      if(e>maxDate)
+      this.errorMessage='Only 7 days range is allowed';
+
       this.wrongRange = true;
 
       setTimeout(() => {
@@ -378,6 +388,7 @@ console.log(this.merchandisers)
 
   getData(range) {
     // debugger
+    this.loadingData=true;
     this.selectedCity = {};
     this.selectedRegion = {};
     this.selectedCategory = [];
