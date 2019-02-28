@@ -116,7 +116,6 @@ export class BodyComponent implements OnInit {
 
   //#region date range
   updateRange(range: Range) {
-    this.loadingData = true;
     this.range = range;
     // console.log("update range", this.range);
     var s = moment(this.range.fromDate).format('YYYY-MM-DD')
@@ -129,6 +128,8 @@ export class BodyComponent implements OnInit {
     this.currentRange = JSON.stringify({ startDate: s, endDate: e, userId: this.uId });
     // console.log('contructor date currentRange', this.currentRange);
     if (s <= e && e<=maxDate) {
+    this.loadingData = true;
+    this.allData=[];
       this.getData(this.currentRange);
     }
    
@@ -470,18 +471,26 @@ console.log(this.merchandisers)
     // console.log('filter data',this.filterData);
     // this.allData = this.allDataClone;
     this.shopClassification = shopClassification;
-    this.allData = []
+    // this.allData = []
     let d = [];
-    if (this.filterData.length == 0 && this.filterDataClone.length>0) {
-      d = this.filterDataClone.filter(d => d.shopClassification === shopClassification);
-    }
-    else if (this.filterData.length > 0 && this.filterDataClone.length==0) {
-     d= this.filterData.filter(d => d.shopClassification === shopClassification);
-    }
-    else {
-     d= this.allDataClone.filter(d => d.shopClassification === shopClassification);
+    // if (this.filterData.length == 0 && this.filterDataClone.length>0) {
+    //   d = this.filterDataClone.filter(d => d.shopClassification === shopClassification);
+    // }
+    // else if (this.filterData.length > 0 && this.filterDataClone.length==0) {
+    //  d= this.filterData.filter(d => d.shopClassification === shopClassification);
+    // }
+    // else {
+    //  d= this.allDataClone.filter(d => d.shopClassification === shopClassification);
 
-    }
+    // }
+
+    if(this.filterData.length>0)
+     d= this.filterData.filter(d => d.shopClassification === shopClassification);
+     else
+      d= this.allDataClone.filter(d => d.shopClassification === shopClassification);
+
+
+
 
     this.allData = d;
 
@@ -541,14 +550,14 @@ console.log(this.merchandisers)
     }
     else if (filter == 'selectedChanel') {
       this.selectedChanel = {};
-      this.regionChange()
+      // this.regionChange()
 
     }
 
     else if (filter == 'selectedCity') {
 
       this.selectedCity = {};
-      this.regionChange()
+      // this.regionChange()
 
     }
 
