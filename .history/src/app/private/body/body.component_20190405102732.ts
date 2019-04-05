@@ -116,8 +116,6 @@ export class BodyComponent implements OnInit {
 
   //#region date range
   updateRange(range: Range) {
-    this.loadingData=true;
-    this.allData=[];
     this.range = range;
     // console.log("update range", this.range);
     var s = moment(this.range.fromDate).format('YYYY-MM-DD')

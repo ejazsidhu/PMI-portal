@@ -116,8 +116,6 @@ export class BodyComponent implements OnInit {
 
   //#region date range
   updateRange(range: Range) {
-    this.loadingData=true;
-    this.allData=[];
     this.range = range;
     // console.log("update range", this.range);
     var s = moment(this.range.fromDate).format('YYYY-MM-DD')
@@ -501,38 +499,14 @@ console.log(this.merchandisers)
 
   }
 
-  getSuperSearch(search){
-    console.log(search.keyCode);
+  getSuperSearch() {
 
-    if(search==''&& this.filterData)
-    this.allData=this.filterData;
 
-    else
-    this.allData=this.allDataClone;
-  
-    
-    if(this.searchFilter.length>1){
-    this.loadingData=true;
-
-      this.generalService.getSuperSearch(this.searchFilter).subscribe(data=>{
-        console.log('search date',data)
-        this.allData=data;
-        this.loadingData=false;
-      },error=>{});
-    }
-    else if(search.length<=1){
-      this.allData=this.allDataClone;
-
-    }
-   
-  
-
-// old impelementation
-  //   this.generalService.getSuperSearch(this.searchFilter).subscribe(data => {
-  //     console.log('search date', data)
-  //     this.allData = data;
-  //     this.loadingData = false;
-  //   }, error => { });
+    this.generalService.getSuperSearch(this.searchFilter).subscribe(data => {
+      console.log('search date', data)
+      this.allData = data;
+      this.loadingData = false;
+    }, error => { });
 
 
 
