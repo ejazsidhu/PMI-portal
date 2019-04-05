@@ -518,7 +518,6 @@ console.log(this.merchandisers)
       this.generalService.getSuperSearch(this.searchFilter).subscribe(data=>{
         console.log('search date',data)
         this.allData=data;
-        this.allDataClone=this.allData;
         this.loadingData=false;
       },error=>{});
     }
