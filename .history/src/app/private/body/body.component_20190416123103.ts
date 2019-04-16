@@ -508,6 +508,7 @@ console.log(this.merchandisers)
    
     let d = [];
 
+
     if(this.filterData.length>0)
      d= this.filterData.filter(d => d.shopAreaType === shopAreaType);
      else
@@ -584,14 +585,14 @@ console.log(this.merchandisers)
       this.allData = this.allDataClone;
 
       }
-       if(filter == 'selectedZone' && this.shopClassification){
+      else if(filter == 'selectedZone' && this.shopClassification){
         this.getAllDataClassification(this.shopClassification);
 
       }
       // else if(this.shopClassification) {
       // }
     }
-     if (filter == 'selectedRegion') {
+    else if (filter == 'selectedRegion') {
 
       this.selectedRegion = {};
       this.selectedChanel = {};
@@ -601,27 +602,27 @@ console.log(this.merchandisers)
       this.zoneChange()
 
     }
-     if (filter == 'selectedChanel') {
+    else if (filter == 'selectedChanel') {
       this.selectedChanel = {};
       // this.regionChange()
 
     }
 
-     if (filter == 'selectedCity') {
+    else if (filter == 'selectedCity') {
 
       this.selectedCity = {};
       // this.regionChange()
 
     }
 
-     if (filter == 'selectedMerchndizer') {
+    else if (filter == 'selectedMerchndizer') {
 
       this.selectedMerchndizer = {};
       this.cityChange()
 
     }
 
-     if (filter == 'shopClassification') {
+    else if (filter == 'shopClassification') {
       debugger
       // this.allData = this.allDataClone
 
@@ -643,11 +644,17 @@ console.log(this.merchandisers)
 
     }
 
-     if (filter == 'shopAreaType') {
+    else if (filter == 'shopAreaType') {
       debugger
       // this.allData = this.allDataClone
 
       this.shopAreaType = '';
+      // if (!!this.selectedZone.title  || !!this.selectedRegion.title  || !!this.selectedChanel.title   || !!this.selectedCity.title )
+      // this.allData = this.filterData ;//|| this.filterDataClone;
+
+      // else if (!!this.selectedZone.title  || !!this.selectedRegion.title  || !!this.selectedChanel.title   || !!this.selectedCity.title  && this.filterDataClone.length>0)
+      // this.allData = this.filterDataClone;
+
       if (this.selectedZone.title){
         // this.allData=this.filterData
         this.zoneChange();

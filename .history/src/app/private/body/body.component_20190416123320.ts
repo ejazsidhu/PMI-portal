@@ -508,6 +508,7 @@ console.log(this.merchandisers)
    
     let d = [];
 
+
     if(this.filterData.length>0)
      d= this.filterData.filter(d => d.shopAreaType === shopAreaType);
      else

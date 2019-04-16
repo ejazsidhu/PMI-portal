@@ -37,7 +37,7 @@
                             <label *ngIf="selectedCity.title" class="ml-3">    {{selectedCity.title}}<i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedCity')"></i></label>
                             <label *ngIf="shopClassification != ''" class="ml-3 mr-5"> {{shopClassification}}     <i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('shopClassification')"></i></label>
                             <label *ngIf="selectedMerchndizer.code" class="ml-3 mr-5"> {{selectedMerchndizer.code}}     <i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('selectedMerchndizer')"></i></label>
-                   
+                            shopAreaType
                             <label *ngIf="shopAreaType != ''" class="ml-3 mr-5"> {{shopAreaType}}     <i class="fa fa-times ml-3 danger" title="clear filter" (click)="clearFilter('shopAreaType')"></i></label>
                             
                             <!-- <button *ngIf="selectedZone.title || selectedRegion.title || selectedChanel.title || selectedCity.title || shopClassification != ''"  (click)="clearFilter('all')" class="btn btn-danger btn-sm ml-5">Clear all</button>

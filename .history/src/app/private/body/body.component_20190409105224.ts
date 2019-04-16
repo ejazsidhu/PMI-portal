@@ -71,7 +71,6 @@ export class BodyComponent implements OnInit {
   shopClassification: string = '';
   filterDataClone: any[] = [];
   errorMessage: string;
-  shopAreaType: string='';
 
   //#endregion
 
@@ -502,27 +501,6 @@ console.log(this.merchandisers)
 
   }
 
-  getAllRuralUrban(shopAreaType: string) {
-
-    this.shopAreaType = shopAreaType;
-   
-    let d = [];
-
-    if(this.filterData.length>0)
-     d= this.filterData.filter(d => d.shopAreaType === shopAreaType);
-     else
-      d= this.allDataClone.filter(d => d.shopAreaType === shopAreaType);
-
-
-
-
-    this.allData = d;
-
-
-
-
-  }
-
   getSuperSearch(search){
     console.log(search.keyCode);
 
@@ -584,14 +562,14 @@ console.log(this.merchandisers)
       this.allData = this.allDataClone;
 
       }
-       if(filter == 'selectedZone' && this.shopClassification){
+      else if(filter == 'selectedZone' && this.shopClassification){
         this.getAllDataClassification(this.shopClassification);
 
       }
       // else if(this.shopClassification) {
       // }
     }
-     if (filter == 'selectedRegion') {
+    else if (filter == 'selectedRegion') {
 
       this.selectedRegion = {};
       this.selectedChanel = {};
@@ -601,27 +579,27 @@ console.log(this.merchandisers)
       this.zoneChange()
 
     }
-     if (filter == 'selectedChanel') {
+    else if (filter == 'selectedChanel') {
       this.selectedChanel = {};
       // this.regionChange()
 
     }
 
-     if (filter == 'selectedCity') {
+    else if (filter == 'selectedCity') {
 
       this.selectedCity = {};
       // this.regionChange()
 
     }
 
-     if (filter == 'selectedMerchndizer') {
+    else if (filter == 'selectedMerchndizer') {
 
       this.selectedMerchndizer = {};
       this.cityChange()
 
     }
 
-     if (filter == 'shopClassification') {
+    else if (filter == 'shopClassification') {
       debugger
       // this.allData = this.allDataClone
 
@@ -643,21 +621,6 @@ console.log(this.merchandisers)
 
     }
 
-     if (filter == 'shopAreaType') {
-      debugger
-      // this.allData = this.allDataClone
-
-      this.shopAreaType = '';
-      if (this.selectedZone.title){
-        // this.allData=this.filterData
-        this.zoneChange();
-
-      }
-
-      else
-      this.allData=this.allDataClone
-
-    }
   }
   // categoryChange() {
   //   console.log(this.selectedCategory);

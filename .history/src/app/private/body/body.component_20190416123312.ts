@@ -508,6 +508,7 @@ console.log(this.merchandisers)
    
     let d = [];
 
+
     if(this.filterData.length>0)
      d= this.filterData.filter(d => d.shopAreaType === shopAreaType);
      else
@@ -648,6 +649,12 @@ console.log(this.merchandisers)
       // this.allData = this.allDataClone
 
       this.shopAreaType = '';
+      // if (!!this.selectedZone.title  || !!this.selectedRegion.title  || !!this.selectedChanel.title   || !!this.selectedCity.title )
+      // this.allData = this.filterData ;//|| this.filterDataClone;
+
+      // else if (!!this.selectedZone.title  || !!this.selectedRegion.title  || !!this.selectedChanel.title   || !!this.selectedCity.title  && this.filterDataClone.length>0)
+      // this.allData = this.filterDataClone;
+
       if (this.selectedZone.title){
         // this.allData=this.filterData
         this.zoneChange();

@@ -152,7 +152,7 @@ isUserLoginIn(){
   }
 
   
-  getSuperSearch(search:String,uId){
+  getSuperSearch(search:String){
 
     let obj={      
         shop_name:search,
@@ -162,7 +162,6 @@ isUserLoginIn(){
         channel_name:'',
         asset_name:'',
         image_type:'',
-        userId:uId
         
     }
 
